@@ -1,0 +1,33 @@
+# Archivos de configuración local
+config/database.php
+
+# Archivos subidos
+public/uploads/*
+!public/uploads/.gitkeep
+
+# Logs
+*.log
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Temporales
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Backups
+*.bak
+*.backup
+*.old
+

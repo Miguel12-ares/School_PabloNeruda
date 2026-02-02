@@ -1,0 +1,122 @@
+╔══════════════════════════════════════════════════════════════════════╗
+║                  ESCUELA PABLO NERUDA                                ║
+║            Sistema de Gestión Académica - INICIO RÁPIDO             ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+📋 INSTALACIÓN EN 5 PASOS:
+
+1️⃣  XAMPP
+   - Descargar e instalar XAMPP desde: https://www.apachefriends.org/
+   - Iniciar Apache y MySQL desde el Panel de Control
+
+2️⃣  COPIAR ARCHIVOS
+   - Copiar carpeta "School_PabloNeruda" a: C:\xampp\htdocs\
+
+3️⃣  CREAR BASE DE DATOS
+   - Abrir: http://localhost/phpmyadmin
+   - Crear base de datos: "escuela_pablo_neruda"
+   - Importar: DB_PabloNeruda.sql
+
+4️⃣  DATOS DE PRUEBA (Opcional)
+   - Importar: datos_prueba.sql
+   - Incluye 6 estudiantes con notas
+
+5️⃣  ACCEDER AL SISTEMA
+   - Abrir: http://localhost/School_PabloNeruda/public/
+
+╔══════════════════════════════════════════════════════════════════════╗
+║                      USO DEL SISTEMA                                 ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+📚 MÓDULO ESTUDIANTES:
+   → Registrar nuevo estudiante
+   → Buscar por documento o nombre
+   → Ver detalles completos
+   → Editar información
+   → Asociar acudientes
+   → Registrar alergias
+
+📝 MÓDULO NOTAS:
+   → Seleccionar curso y periodo
+   → Ingresar calificaciones (0.0 a 5.0)
+   → Guardar por estudiante/materia
+   → Ver boletines individuales
+   → Imprimir boletines
+
+📊 MÓDULO REPORTES:
+   → Estudiantes por curso
+   → Estudiantes con alergias (EMERGENCIA)
+   → Estudiantes reprobados
+   → Boletines por curso
+
+╔══════════════════════════════════════════════════════════════════════╗
+║                    DATOS DE PRUEBA                                   ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+Si importaste datos_prueba.sql, tienes:
+
+✅ 6 Estudiantes de ejemplo
+✅ 12 Acudientes (2 por estudiante)
+✅ 66 Notas registradas (Periodo 1/2026)
+✅ 4 Periodos académicos configurados
+✅ Casos de aprobados y reprobados
+✅ Estudiantes con alergias
+
+╔══════════════════════════════════════════════════════════════════════╗
+║                 CARACTERÍSTICAS PRINCIPALES                          ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+✨ Cálculo automático de promedios
+✨ Validación en tiempo real
+✨ Subida de documentos PDF (máx 2MB)
+✨ Búsqueda rápida e inteligente
+✨ Reportes imprimibles
+✨ Diseño responsivo (móvil/tablet/PC)
+✨ Interfaz moderna y fácil de usar
+
+╔══════════════════════════════════════════════════════════════════════╗
+║                    SOLUCIÓN DE PROBLEMAS                             ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+❌ Error de conexión a BD:
+   → Verificar que MySQL esté iniciado
+   → Revisar config/database.php (usuario: root, password: vacío)
+
+❌ No se pueden subir archivos:
+   → Verificar permisos de carpeta public/uploads
+   → Clic derecho → Propiedades → Seguridad → Dar permisos escritura
+
+❌ Página en blanco:
+   → Verificar que Apache esté iniciado
+   → Revisar que la ruta sea correcta
+
+╔══════════════════════════════════════════════════════════════════════╗
+║                      DOCUMENTACIÓN                                   ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+📖 README.md           - Documentación completa del sistema
+📖 INSTALACION.md      - Guía detallada de instalación
+📖 RESUMEN_PROYECTO.md - Resumen técnico del proyecto
+
+╔══════════════════════════════════════════════════════════════════════╗
+║                    INFORMACIÓN TÉCNICA                               ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+🔧 PHP 8.x nativo (sin frameworks)
+🔧 MySQL 8.x con PDO
+🔧 Bootstrap 5 para UI
+🔧 Arquitectura limpia (SOLID)
+🔧 60+ archivos PHP
+🔧 ~7,500 líneas de código
+
+╔══════════════════════════════════════════════════════════════════════╗
+║                      ¡LISTO PARA USAR!                               ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+El sistema está 100% funcional y listo para producción.
+
+Para más información, consulte README.md
+
+© 2026 - Escuela Pablo Neruda
+Barrio Las Malvinas, Sector 4 Berlín
+

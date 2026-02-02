@@ -1,0 +1,69 @@
+# Configuración de Apache para Escuela Pablo Neruda
+
+# Habilitar RewriteEngine
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /School_PabloNeruda/public/
+    
+    # Redirigir todo a index.php excepto archivos existentes
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+</IfModule>
+
+# Configuración de PHP
+<IfModule mod_php.c>
+    php_value upload_max_filesize 2M
+    php_value post_max_size 3M
+    php_value max_execution_time 60
+    php_value max_input_time 60
+    php_flag display_errors Off
+    php_flag log_errors On
+</IfModule>
+
+# Seguridad: Deshabilitar listado de directorios
+Options -Indexes
+
+# Seguridad: Proteger archivos sensibles
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|sql)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Configuración de tipos MIME
+<IfModule mod_mime.c>
+    AddType application/pdf .pdf
+    AddType text/css .css
+    AddType text/javascript .js
+</IfModule>
+
+# Compresión GZIP
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript
+</IfModule>
+
+# Cache de archivos estáticos
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType application/pdf "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+</IfModule>
+
+# Seguridad adicional
+<IfModule mod_headers.c>
+    # Prevenir clickjacking
+    Header always append X-Frame-Options SAMEORIGIN
+    
+    # Prevenir XSS
+    Header set X-XSS-Protection "1; mode=block"
+    
+    # Prevenir MIME sniffing
+    Header set X-Content-Type-Options nosniff
+</IfModule>
+

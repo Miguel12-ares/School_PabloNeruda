@@ -1,0 +1,160 @@
+╔══════════════════════════════════════════════════════════════════════╗
+║                         LICENCIA DE USO                              ║
+║              Sistema de Gestión Escolar                              ║
+║              Escuela Pablo Neruda                                    ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+INFORMACIÓN DEL PROYECTO
+========================
+
+Nombre del Sistema:  Sistema de Gestión Académica
+Cliente:             Escuela Pablo Neruda
+Ubicación:           Barrio Las Malvinas, Sector 4 Berlín
+Versión:             1.0.0
+Fecha de Desarrollo: Enero 2026
+Estado:              Producción
+
+
+TÉRMINOS DE USO
+===============
+
+Este sistema ha sido desarrollado específicamente para la Escuela Pablo 
+Neruda como herramienta interna de gestión académica.
+
+DERECHOS Y PERMISOS:
+-------------------
+✓ Uso ilimitado dentro de la institución
+✓ Modificación del código fuente según necesidades
+✓ Instalación en múltiples equipos de la institución
+✓ Creación de copias de respaldo
+✓ Capacitación de personal en el uso del sistema
+
+
+RESTRICCIONES:
+-------------
+✗ No se permite la venta del sistema
+✗ No se permite la distribución a terceros sin autorización
+✗ No se permite el uso comercial fuera de la institución
+✗ No se permite eliminar créditos del desarrollador
+
+
+GARANTÍA Y SOPORTE
+==================
+
+GARANTÍA:
+--------
+El sistema se proporciona "tal cual" sin garantías explícitas o 
+implícitas. El desarrollador no se hace responsable por:
+- Pérdida de datos
+- Interrupciones del servicio
+- Errores no documentados
+
+SOPORTE TÉCNICO:
+---------------
+Se recomienda:
+- Realizar copias de seguridad periódicas de la base de datos
+- Mantener actualizado el servidor (PHP, MySQL, Apache)
+- Consultar la documentación incluida (README.md)
+- Capacitar al personal en el uso correcto del sistema
+
+
+MANTENIMIENTO
+=============
+
+RECOMENDACIONES:
+---------------
+✓ Backup diario de la base de datos
+✓ Backup semanal de archivos subidos (carpeta uploads)
+✓ Revisar logs de errores periódicamente
+✓ Actualizar contraseñas de base de datos regularmente
+✓ Mantener el sistema operativo actualizado
+
+
+DATOS PERSONALES
+================
+
+El sistema maneja información sensible de estudiantes y sus familias.
+La institución se compromete a:
+
+✓ Proteger la privacidad de los datos
+✓ Usar la información solo para fines académicos
+✓ Cumplir con las leyes de protección de datos vigentes
+✓ Restringir el acceso solo a personal autorizado
+✓ No compartir información con terceros sin autorización
+
+
+MODIFICACIONES
+==============
+
+La institución tiene derecho a:
+✓ Modificar el código fuente según necesidades
+✓ Agregar nuevas funcionalidades
+✓ Personalizar la interfaz
+✓ Integrar con otros sistemas
+
+Se recomienda:
+- Documentar todas las modificaciones realizadas
+- Mantener copias del código original
+- Realizar pruebas antes de implementar cambios en producción
+
+
+CRÉDITOS
+========
+
+Desarrollador:       [Nombre del Desarrollador]
+Tecnologías:         PHP 8.x, MySQL 8.x, Bootstrap 5
+Arquitectura:        SOLID, MVC, Repository Pattern
+Año:                 2026
+
+
+CONTACTO
+========
+
+Para consultas técnicas o soporte:
+- Revisar documentación: README.md, INSTALACION.md
+- Consultar estructura: ESTRUCTURA_PROYECTO.txt
+- Inicio rápido: INICIO_RAPIDO.txt
+
+
+AGRADECIMIENTOS
+===============
+
+Agradecemos a la Escuela Pablo Neruda por confiar en este desarrollo
+y por su compromiso con la digitalización de la gestión académica.
+
+
+NOTAS IMPORTANTES
+=================
+
+1. Este sistema reemplaza el manejo manual en cuadernos físicos
+2. Facilita búsquedas rápidas en casos de emergencia (alergias)
+3. Automatiza el cálculo de calificaciones
+4. Genera reportes instantáneos
+5. Mejora la eficiencia administrativa
+
+
+HISTORIAL DE VERSIONES
+=======================
+
+Versión 1.0.0 (Enero 2026)
+---------------------------
+✓ Sistema completo implementado
+✓ Gestión de estudiantes
+✓ Sistema de calificaciones
+✓ Reportes académicos
+✓ Documentación completa
+✓ Datos de prueba incluidos
+
+
+╔══════════════════════════════════════════════════════════════════════╗
+║                                                                      ║
+║  Este sistema ha sido desarrollado con dedicación y profesionalismo ║
+║  para mejorar la gestión académica de la Escuela Pablo Neruda.      ║
+║                                                                      ║
+║  ¡Gracias por usar este sistema!                                    ║
+║                                                                      ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+© 2026 - Todos los derechos reservados
+Escuela Pablo Neruda - Barrio Las Malvinas, Sector 4 Berlín
+
