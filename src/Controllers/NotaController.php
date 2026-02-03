@@ -10,6 +10,8 @@ class NotaController {
     private MateriaService $materiaService;
     private PeriodoService $periodoService;
     private CursoService $cursoService;
+    private AuthService $authService;
+    private PermissionMiddleware $permissionMiddleware;
     
     public function __construct() {
         $this->service = new NotaService();
@@ -17,13 +19,18 @@ class NotaController {
         $this->materiaService = new MateriaService();
         $this->periodoService = new PeriodoService();
         $this->cursoService = new CursoService();
+        $this->authService = new AuthService();
+        $this->permissionMiddleware = new PermissionMiddleware();
     }
     
     /**
      * Página principal de notas
      */
     public function index(): void {
-        $cursos = $this->cursoService->getAll();
+        $this->permissionMiddleware->requirePermission('notas', 'ver');
+        
+        // Filtrar cursos según rol
+        $cursos = $this->authService->getCursosUsuarioActual();
         $periodos = $this->periodoService->getAll();
         
         require_once VIEWS_PATH . '/notas/index.php';
@@ -33,6 +40,11 @@ class NotaController {
      * Formulario para registrar notas
      */
     public function registrar(): void {
+        $this->permissionMiddleware->requireAnyPermission([
+            ['modulo' => 'notas', 'accion' => 'registrar'],
+            ['modulo' => 'notas', 'accion' => 'editar_propias']
+        ]);
+        
         $id_curso = $_GET['id_curso'] ?? 0;
         $id_periodo = $_GET['id_periodo'] ?? 0;
         
@@ -42,8 +54,19 @@ class NotaController {
             exit;
         }
         
+        // Verificar acceso al curso
+        $this->permissionMiddleware->requireCursoAccess($id_curso);
+        
         $estudiantes = $this->estudianteService->getByCurso($id_curso);
-        $materias = $this->materiaService->getActive();
+        
+        // Si es maestro, filtrar solo sus materias
+        if ($this->authService->hasRole('Maestro')) {
+            $authRepo = new AuthRepository();
+            $materias = $authRepo->getMaestroMaterias($this->authService->getCurrentUserId(), $id_curso);
+        } else {
+            $materias = $this->materiaService->getActive();
+        }
+        
         $periodo = $this->periodoService->getById($id_periodo);
         $curso = $this->cursoService->getById($id_curso);
         
@@ -54,9 +77,22 @@ class NotaController {
      * Guardar notas
      */
     public function store(): void {
+        $this->permissionMiddleware->requireAnyPermission([
+            ['modulo' => 'notas', 'accion' => 'registrar'],
+            ['modulo' => 'notas', 'accion' => 'editar_propias']
+        ]);
+        
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header('Location: index.php?controller=nota&action=index');
             exit;
+        }
+        
+        // Verificar permisos sobre curso y materia si es maestro
+        $id_curso = $_POST['id_curso'] ?? 0;
+        $id_materia = $_POST['id_materia'] ?? 0;
+        
+        if ($this->authService->hasRole('Maestro')) {
+            $this->permissionMiddleware->requireNotaEditPermission($id_curso, $id_materia);
         }
         
         $result = $this->service->saveNotas($_POST);

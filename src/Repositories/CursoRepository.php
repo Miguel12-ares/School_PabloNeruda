@@ -70,5 +70,22 @@ class CursoRepository extends BaseRepository {
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll();
     }
+    
+    /**
+     * Obtener cursos con alerta de capacidad (80% o más ocupado)
+     */
+    public function getCursosConAlertaCapacidad(): array {
+        $sql = "SELECT c.*, 
+                       COUNT(e.id_estudiante) as total_estudiantes,
+                       c.capacidad_maxima,
+                       ROUND((COUNT(e.id_estudiante) / c.capacidad_maxima) * 100, 2) as porcentaje_ocupacion
+                FROM cursos c
+                LEFT JOIN estudiantes e ON c.id_curso = e.id_curso
+                GROUP BY c.id_curso
+                HAVING porcentaje_ocupacion >= 80
+                ORDER BY porcentaje_ocupacion DESC";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll();
+    }
 }
 

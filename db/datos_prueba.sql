@@ -171,6 +171,23 @@ INSERT INTO notas (id_estudiante, id_materia, id_periodo, nota_1, nota_2, nota_3
 (6, 11, 1, 4.3, 4.4, 4.5, 4.3, 4.4); -- Ciencias Sociales
 
 -- =============================================
+-- ASIGNACIONES ADICIONALES DE MAESTRO A CURSOS
+-- =============================================
+-- Asignar al profesor (id_usuario=3) a los cursos adicionales
+-- Los cursos 4, 5, 6 son: Segundo A, Tercero A, Cuarto A
+INSERT INTO maestro_curso (id_usuario, id_curso, id_materia) VALUES
+-- Profesor imparte Matemáticas en Segundo A (curso 4)
+(3, 4, (SELECT id_materia FROM materias WHERE nombre_materia='Matemáticas')),
+-- Profesor imparte Español en Segundo A (curso 4)
+(3, 4, (SELECT id_materia FROM materias WHERE nombre_materia='Español')),
+-- Profesor imparte Matemáticas en Tercero A (curso 5)
+(3, 5, (SELECT id_materia FROM materias WHERE nombre_materia='Matemáticas')),
+-- Profesor imparte Ciencias Naturales en Tercero A (curso 5)
+(3, 5, (SELECT id_materia FROM materias WHERE nombre_materia='Ciencias Naturales')),
+-- Profesor imparte Matemáticas en Cuarto A (curso 6)
+(3, 6, (SELECT id_materia FROM materias WHERE nombre_materia='Matemáticas'));
+
+-- =============================================
 -- Verificación de datos insertados
 -- =============================================
 

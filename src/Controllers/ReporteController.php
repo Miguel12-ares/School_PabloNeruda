@@ -9,18 +9,21 @@ class ReporteController {
     private NotaService $notaService;
     private CursoService $cursoService;
     private PeriodoService $periodoService;
+    private PermissionMiddleware $permissionMiddleware;
     
     public function __construct() {
         $this->estudianteService = new EstudianteService();
         $this->notaService = new NotaService();
         $this->cursoService = new CursoService();
         $this->periodoService = new PeriodoService();
+        $this->permissionMiddleware = new PermissionMiddleware();
     }
     
     /**
      * Página principal de reportes
      */
     public function index(): void {
+        $this->permissionMiddleware->requirePermission('reportes', 'ver');
         require_once VIEWS_PATH . '/reportes/index.php';
     }
     
@@ -28,6 +31,8 @@ class ReporteController {
      * Reporte de estudiantes por curso
      */
     public function estudiantes_por_curso(): void {
+        $this->permissionMiddleware->requirePermission('reportes', 'ver');
+        
         $id_curso = $_GET['id_curso'] ?? 0;
         
         $cursos = $this->cursoService->getAllWithStudentCount();
@@ -45,15 +50,26 @@ class ReporteController {
     /**
      * Reporte de estudiantes con alergias
      */
-    public function estudiantes_alergias(): void {
+    public function alergias(): void {
+        $this->permissionMiddleware->requirePermission('reportes', 'alergias');
+        
         $estudiantes = $this->estudianteService->getWithAlergias();
         require_once VIEWS_PATH . '/reportes/estudiantes_alergias.php';
     }
     
     /**
+     * Alias para compatibilidad con URLs antiguas
+     */
+    public function estudiantes_alergias(): void {
+        $this->alergias();
+    }
+    
+    /**
      * Reporte de estudiantes reprobados
      */
-    public function estudiantes_reprobados(): void {
+    public function reprobados(): void {
+        $this->permissionMiddleware->requirePermission('reportes', 'reprobados');
+        
         $id_periodo = $_GET['id_periodo'] ?? 0;
         
         $periodos = $this->periodoService->getAll();
@@ -66,6 +82,13 @@ class ReporteController {
         }
         
         require_once VIEWS_PATH . '/reportes/estudiantes_reprobados.php';
+    }
+    
+    /**
+     * Alias para compatibilidad con URLs antiguas
+     */
+    public function estudiantes_reprobados(): void {
+        $this->reprobados();
     }
     
     /**

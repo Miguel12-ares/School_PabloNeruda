@@ -120,5 +120,20 @@ class EstudianteRepository extends BaseRepository {
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll();
     }
+    
+    /**
+     * Obtener estadísticas por jornada
+     */
+    public function getEstadisticasPorJornada(): array {
+        $sql = "SELECT 
+                    e.jornada,
+                    COUNT(e.id_estudiante) as total_estudiantes,
+                    COUNT(DISTINCT e.id_curso) as total_cursos,
+                    SUM(e.tiene_alergias) as estudiantes_con_alergias
+                FROM estudiantes e
+                GROUP BY e.jornada";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll();
+    }
 }
 
