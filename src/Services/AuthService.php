@@ -271,14 +271,19 @@ class AuthService {
      * Obtener cursos del usuario actual
      */
     public function getCursosUsuarioActual(): array {
+        if ($this->hasRole('Maestro')) {
+            // Si es maestro, devolver solo sus cursos asignados
+            return $_SESSION['cursos_asignados'] ?? [];
+        }
+        
         if ($this->hasPermission('cursos', 'ver')) {
-            // Si tiene permiso completo, devolver todos los cursos
+            // Si tiene permiso completo (Directivo/Administrativo), devolver todos los cursos
             $cursoRepo = new CursoRepository();
             return $cursoRepo->findAll();
         }
         
-        // Si es maestro, devolver solo sus cursos
-        return $_SESSION['cursos_asignados'] ?? [];
+        // Por defecto, retornar array vacío
+        return [];
     }
     
     /**

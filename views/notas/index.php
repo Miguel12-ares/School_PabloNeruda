@@ -23,7 +23,10 @@ require_once VIEWS_PATH . '/layout/header.php';
                             <option value="">Seleccione un curso</option>
                             <?php foreach ($cursos as $curso): ?>
                                 <option value="<?= $curso['id_curso'] ?>">
-                                    <?= htmlspecialchars($curso['nombre_curso']) ?> - <?= ucfirst($curso['jornada']) ?>
+                                    <?= htmlspecialchars($curso['nombre_curso']) ?>
+                                    <?php if (isset($curso['jornada'])): ?>
+                                        - <?= ucfirst($curso['jornada']) ?>
+                                    <?php endif; ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>

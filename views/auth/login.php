@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -30,7 +30,7 @@
         }
         
         .login-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
             padding: 2.5rem 2rem;
             text-align: center;
             color: white;
@@ -64,12 +64,12 @@
         }
         
         .form-control:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: #1e3a5f;
+            box-shadow: 0 0 0 0.2rem rgba(30, 58, 95, 0.25);
         }
         
         .btn-login {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
             border: none;
             border-radius: 10px;
             padding: 0.85rem;
@@ -81,7 +81,7 @@
         
         .btn-login:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 10px 20px rgba(30, 58, 95, 0.3);
         }
         
         .alert {
@@ -136,7 +136,7 @@
         }
         
         .test-credentials h6 {
-            color: #667eea;
+            color: #1e3a5f;
             font-weight: 600;
             margin-bottom: 1rem;
         }
@@ -146,7 +146,7 @@
             padding: 0.75rem;
             margin-bottom: 0.5rem;
             border-radius: 8px;
-            border-left: 3px solid #667eea;
+            border-left: 3px solid #1e3a5f;
         }
         
         .test-credentials strong {

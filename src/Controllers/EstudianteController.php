@@ -27,16 +27,33 @@ class EstudianteController {
     public function index(): void {
         $this->permissionMiddleware->requirePermission('estudiantes', 'ver');
         
-        // Filtrar por cursos si es maestro
-        if ($this->authService->hasRole('Maestro')) {
-            $cursosAsignados = $this->authService->getCursosUsuarioActual();
-            $estudiantes = [];
-            foreach ($cursosAsignados as $curso) {
-                $estudiantesCurso = $this->service->getByCurso($curso['id_curso']);
-                $estudiantes = array_merge($estudiantes, $estudiantesCurso);
+        // Verificar si se está filtrando por curso específico
+        $cursoFiltro = $_GET['curso'] ?? null;
+        
+        if ($cursoFiltro) {
+            // Filtrar por curso específico
+            $estudiantes = $this->service->getByCurso($cursoFiltro);
+            
+            // Si es maestro, verificar que tenga acceso a ese curso
+            if ($this->authService->hasRole('Maestro')) {
+                if (!$this->authService->maestroPuedeAccederCurso($cursoFiltro)) {
+                    $_SESSION['error'] = 'No tienes permiso para acceder a este curso';
+                    header('Location: /dashboard/maestro.php');
+                    exit;
+                }
             }
         } else {
-            $estudiantes = $this->service->getAllWithCurso();
+            // Sin filtro - mostrar según rol
+            if ($this->authService->hasRole('Maestro')) {
+                $cursosAsignados = $this->authService->getCursosUsuarioActual();
+                $estudiantes = [];
+                foreach ($cursosAsignados as $curso) {
+                    $estudiantesCurso = $this->service->getByCurso($curso['id_curso']);
+                    $estudiantes = array_merge($estudiantes, $estudiantesCurso);
+                }
+            } else {
+                $estudiantes = $this->service->getAllWithCurso();
+            }
         }
         
         $cursos = $this->cursoService->getAll();

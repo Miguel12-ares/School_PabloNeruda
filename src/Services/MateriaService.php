@@ -40,6 +40,13 @@ class MateriaService {
     }
     
     /**
+     * Obtener materias de un curso (alias para mantener compatibilidad)
+     */
+    public function getMateriasByCurso(int $id_curso): array {
+        return $this->getByCurso($id_curso);
+    }
+    
+    /**
      * Crear nueva materia
      */
     public function create(array $datos): array {

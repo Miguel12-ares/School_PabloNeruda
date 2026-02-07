@@ -20,23 +20,8 @@ class DashboardController {
     public function adminDashboard(): void {
         $this->permissionMiddleware->requirePermission('dashboard', 'administrativo');
         
-        $estudianteRepo = new EstudianteRepository();
-        $cursoRepo = new CursoRepository();
-        $notaRepo = new NotaRepository();
-        
-        // Estadísticas generales
-        $totalEstudiantes = count($estudianteRepo->findAll());
-        $totalCursos = count($cursoRepo->findAll());
-        
-        // Estudiantes por estado académico
-        $estadisticas = $notaRepo->getEstadisticasGenerales();
-        
-        // Últimas actividades (auditoría)
-        $auditoriaRepo = new AuditoriaRepository();
-        $ultimasActividades = $auditoriaRepo->getLogs(null, null, null, null, null, 10);
-        
-        // Alertas de capacidad de cursos
-        $cursosConAlerta = $cursoRepo->getCursosConAlertaCapacidad();
+        // No se necesitan estadísticas para el nuevo dashboard
+        // El dashboard ahora solo muestra accesos rápidos en tarjetas
         
         require_once VIEWS_PATH . '/dashboard/admin.php';
     }
@@ -47,23 +32,8 @@ class DashboardController {
     public function directivoDashboard(): void {
         $this->permissionMiddleware->requirePermission('dashboard', 'directivo');
         
-        $estudianteRepo = new EstudianteRepository();
-        $cursoRepo = new CursoRepository();
-        $notaRepo = new NotaRepository();
-        
-        // Estadísticas de rendimiento académico
-        $rendimientoPorCurso = $notaRepo->getRendimientoPorCurso();
-        
-        // Estudiantes en riesgo (promedio < 3.0)
-        $estudiantesEnRiesgo = $notaRepo->getEstudiantesEnRiesgo();
-        
-        // Estadísticas generales
-        $totalEstudiantes = count($estudianteRepo->findAll());
-        $totalCursos = count($cursoRepo->findAll());
-        $estadisticas = $notaRepo->getEstadisticasGenerales();
-        
-        // Comparativa por jornadas
-        $estadisticasPorJornada = $estudianteRepo->getEstadisticasPorJornada();
+        // No se necesitan estadísticas para el nuevo dashboard
+        // El dashboard ahora solo muestra accesos rápidos a reportes en tarjetas
         
         require_once VIEWS_PATH . '/dashboard/directivo.php';
     }

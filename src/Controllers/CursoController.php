@@ -201,4 +201,58 @@ class CursoController {
         
         require_once VIEWS_PATH . '/cursos/view.php';
     }
+    
+    /**
+     * Ver detalle completo del curso para maestros
+     */
+    public function detalle(): void {
+        // Los maestros pueden ver detalles de sus cursos asignados
+        // Los administrativos y directivos pueden ver todos
+        if (!$this->authService->hasRole('Maestro')) {
+            $this->permissionMiddleware->requirePermission('cursos', 'ver');
+        }
+        
+        $id = $_GET['id'] ?? 0;
+        $curso = $this->cursoService->getById($id);
+        
+        if (!$curso) {
+            $_SESSION['error'] = 'Curso no encontrado';
+            header('Location: /dashboard/maestro.php');
+            exit;
+        }
+        
+        // Si es maestro, verificar que el curso esté asignado
+        if ($this->authService->hasRole('Maestro')) {
+            if (!$this->authService->maestroPuedeAccederCurso($id)) {
+                $_SESSION['error'] = 'No tienes permiso para acceder a este curso';
+                header('Location: /dashboard/maestro.php');
+                exit;
+            }
+        }
+        
+        // Obtener estudiantes del curso con sus promedios
+        $estudianteService = new EstudianteService();
+        $estudiantes = $estudianteService->getByCurso($id);
+        
+        // Obtener notas y estadísticas del curso
+        $notaService = new NotaService();
+        $estadisticas = $notaService->getEstadisticasCurso($id);
+        
+        // Obtener materias del curso
+        $materiaService = new MateriaService();
+        $materias = $materiaService->getMateriasByCurso($id);
+        
+        // Obtener maestros asignados al curso
+        $authRepo = new AuthRepository();
+        $maestros = $authRepo->getMaestrosByCurso($id);
+        
+        // Calcular promedios por estudiante
+        foreach ($estudiantes as &$estudiante) {
+            $promedio = $notaService->getPromedioEstudiante($estudiante['id_estudiante']);
+            $estudiante['promedio_general'] = $promedio['promedio_general'] ?? 0;
+            $estudiante['materias_reprobadas'] = $promedio['materias_reprobadas'] ?? 0;
+        }
+        
+        require_once VIEWS_PATH . '/cursos/detalle.php';
+    }
 }

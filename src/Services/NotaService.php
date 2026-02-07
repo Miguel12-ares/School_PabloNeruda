@@ -130,5 +130,69 @@ class NotaService {
         
         return $count > 0 ? round($suma / $count, 1) : null;
     }
+    
+    /**
+     * Obtener estadísticas de un curso específico
+     */
+    public function getEstadisticasCurso(int $cursoId): array {
+        return $this->notaRepo->getEstadisticasCurso($cursoId);
+    }
+    
+    /**
+     * Obtener promedio de un estudiante (todos los periodos)
+     */
+    public function getPromedioEstudiante(int $id_estudiante): array {
+        $notas = $this->notaRepo->findByEstudiante($id_estudiante);
+        
+        if (empty($notas)) {
+            return [
+                'promedio_general' => 0,
+                'materias_reprobadas' => 0,
+                'total_materias' => 0
+            ];
+        }
+        
+        $suma = 0;
+        $count = 0;
+        $reprobadas = 0;
+        
+        foreach ($notas as $nota) {
+            if ($nota['promedio'] !== null) {
+                $suma += $nota['promedio'];
+                $count++;
+                
+                if ($nota['estado'] === 'reprobado') {
+                    $reprobadas++;
+                }
+            }
+        }
+        
+        return [
+            'promedio_general' => $count > 0 ? round($suma / $count, 1) : 0,
+            'materias_reprobadas' => $reprobadas,
+            'total_materias' => $count
+        ];
+    }
+    
+    /**
+     * Obtener rendimiento académico por curso
+     */
+    public function getRendimientoPorCurso(): array {
+        return $this->notaRepo->getRendimientoPorCurso();
+    }
+    
+    /**
+     * Obtener estudiantes en riesgo
+     */
+    public function getEstudiantesEnRiesgo(): array {
+        return $this->notaRepo->getEstudiantesEnRiesgo();
+    }
+    
+    /**
+     * Obtener estudiantes en riesgo de un curso específico
+     */
+    public function getEstudiantesEnRiesgoPorCurso(int $cursoId): array {
+        return $this->notaRepo->getEstudiantesEnRiesgoPorCurso($cursoId);
+    }
 }
 

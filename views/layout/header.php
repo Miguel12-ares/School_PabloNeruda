@@ -16,7 +16,7 @@ $primaryRole = $authService->getPrimaryRole();
     <link rel="stylesheet" href="/css/style.css">
     <style>
         .navbar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%) !important;
         }
         .user-badge {
             background: rgba(255,255,255,0.2);

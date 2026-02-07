@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -38,7 +38,7 @@
             margin: 1.5rem 0;
         }
         .btn-home {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
             border: none;
             padding: 0.75rem 2rem;
             border-radius: 50px;

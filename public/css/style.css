@@ -1,12 +1,55 @@
 /* Estilos personalizados para Escuela Pablo Neruda */
 
 :root {
-    --primary-color: #0d6efd;
+    --primary-color: #1e3a5f;
+    --primary-light: #2c5282;
+    --primary-dark: #0f1f3a;
     --secondary-color: #6c757d;
     --success-color: #198754;
     --danger-color: #dc3545;
     --warning-color: #ffc107;
     --info-color: #0dcaf0;
+    
+    /* Bootstrap override */
+    --bs-primary: #1e3a5f;
+    --bs-primary-rgb: 30, 58, 95;
+}
+
+/* Override Bootstrap primary colors */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.border-primary {
+    border-color: var(--primary-color) !important;
+}
+
+.badge.bg-primary {
+    background-color: var(--primary-color) !important;
 }
 
 body {
@@ -106,7 +149,7 @@ body {
 .form-control:focus,
 .form-select:focus {
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    box-shadow: 0 0 0 0.2rem rgba(30, 58, 95, 0.25);
 }
 
 .is-invalid {
@@ -170,6 +213,164 @@ footer {
     .btn-group .btn {
         margin-bottom: 5px;
         border-radius: 6px !important;
+    }
+}
+
+/* Tablas Responsive - Vista de Tarjetas en Móvil */
+@media screen and (max-width: 768px) {
+    /* Ocultar encabezados de tabla en móvil */
+    .table-responsive table thead {
+        display: none;
+    }
+    
+    /* Convertir filas en tarjetas */
+    .table-responsive table,
+    .table-responsive table tbody,
+    .table-responsive table tr,
+    .table-responsive table td {
+        display: block;
+        width: 100%;
+    }
+    
+    .table-responsive table tr {
+        margin-bottom: 15px;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 10px;
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .table-responsive table td {
+        text-align: left !important;
+        padding: 8px 10px;
+        border: none;
+        position: relative;
+        padding-left: 50%;
+        min-height: 35px;
+        display: flex;
+        align-items: center;
+    }
+    
+    /* Agregar etiquetas antes de cada celda */
+    .table-responsive table td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        width: 45%;
+        padding-right: 10px;
+        font-weight: bold;
+        color: var(--primary-color);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    /* Celda de acciones */
+    .table-responsive table td:last-child {
+        padding-left: 10px;
+        padding-top: 15px;
+        border-top: 1px solid #dee2e6;
+        margin-top: 10px;
+    }
+    
+    .table-responsive table td:last-child:before {
+        content: "Acciones";
+        position: relative;
+        left: 0;
+        width: 100%;
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: var(--primary-color);
+    }
+    
+    /* Ajustar botones en vista móvil */
+    .table-responsive .btn-group {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 5px;
+        width: 100%;
+    }
+    
+    .table-responsive .btn-group .btn {
+        flex: 1;
+        margin-bottom: 0;
+        min-width: 45px;
+    }
+    
+    /* Ajustar badges y elementos inline */
+    .table-responsive table td .badge {
+        display: inline-block;
+        margin: 2px;
+    }
+    
+    /* Ajustar barras de progreso */
+    .table-responsive table td .progress {
+        width: 100%;
+        max-width: none;
+    }
+    
+    /* Mejorar espaciado de contenido */
+    .table-responsive table td > * {
+        display: inline-block;
+    }
+    
+    /* Ajustar contenido de celdas con múltiples elementos */
+    .table-responsive table td small {
+        display: block;
+    }
+    
+    /* Ajustar inputs de notas en móvil */
+    .table-responsive table td .nota-input,
+    .table-responsive table td input[type="number"] {
+        width: 100%;
+        max-width: 150px;
+    }
+    
+    /* Excepción para tablas pequeñas de información (no responsive) */
+    .card-body > table.table:not(.table-hover):not(.table-striped) {
+        display: table !important;
+    }
+    
+    .card-body > table.table:not(.table-hover):not(.table-striped) thead {
+        display: none !important;
+    }
+    
+    .card-body > table.table:not(.table-hover):not(.table-striped) tbody,
+    .card-body > table.table:not(.table-hover):not(.table-striped) tr {
+        display: table-row-group !important;
+    }
+    
+    .card-body > table.table:not(.table-hover):not(.table-striped) tr {
+        display: table-row !important;
+        margin-bottom: 0 !important;
+        border: none !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+    }
+    
+    .card-body > table.table:not(.table-hover):not(.table-striped) td,
+    .card-body > table.table:not(.table-hover):not(.table-striped) th {
+        display: table-cell !important;
+        padding: 8px !important;
+        border-top: 1px solid #dee2e6 !important;
+    }
+    
+    .card-body > table.table:not(.table-hover):not(.table-striped) td:before,
+    .card-body > table.table:not(.table-hover):not(.table-striped) th:before {
+        content: none !important;
+    }
+    
+    /* Tablas de notas - diseño especial */
+    .table-responsive table.table-bordered tr {
+        border-left: 3px solid var(--primary-color);
+    }
+    
+    /* Forzar el uso del atributo data-label para el último hijo */
+    .table-responsive table td:last-child:before {
+        content: attr(data-label) !important;
     }
 }
 
@@ -279,3 +480,92 @@ textarea:focus {
     border-width: 2px;
 }
 
+/* ========================================
+   ESTILOS PARA DASHBOARDS - TARJETAS DE ACCESO RÁPIDO
+   ======================================== */
+
+/* Tarjetas de accesos rápidos en dashboards */
+.quick-access-card {
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.05) !important;
+    border-radius: 12px;
+}
+
+.quick-access-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+    cursor: pointer;
+}
+
+.quick-access-icon i {
+    font-size: 3.5rem;
+    display: block;
+}
+
+/* Tarjetas de cursos en dashboard maestro */
+.curso-card {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.curso-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(30, 58, 95, 0.2) !important;
+}
+
+/* Color purple personalizado para reportes */
+.text-purple {
+    color: #6f42c1 !important;
+}
+
+.btn-purple {
+    background-color: #6f42c1;
+    border-color: #6f42c1;
+    color: white;
+}
+
+.btn-purple:hover {
+    background-color: #5a32a3;
+    border-color: #5a32a3;
+    color: white;
+}
+
+.btn-outline-purple {
+    color: #6f42c1;
+    border-color: #6f42c1;
+}
+
+.btn-outline-purple:hover {
+    background-color: #6f42c1;
+    border-color: #6f42c1;
+    color: white;
+}
+
+.bg-purple {
+    background-color: #6f42c1 !important;
+}
+
+/* Espaciado entre tarjetas (gap) como en la imagen de referencia */
+.row.g-4 > * {
+    padding: 0.75rem;
+}
+
+/* Mejoras para las tarjetas en móviles */
+@media (max-width: 768px) {
+    .quick-access-card {
+        margin-bottom: 1rem;
+    }
+    
+    .quick-access-icon i {
+        font-size: 2.5rem;
+    }
+}
+
+/* Animación suave para botones dentro de tarjetas */
+.quick-access-card .btn {
+    transition: all 0.2s ease;
+}
+
+.quick-access-card .btn:hover {
+    transform: scale(1.02);
+}

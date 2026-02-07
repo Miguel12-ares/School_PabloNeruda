@@ -312,5 +312,39 @@ document.addEventListener('DOMContentLoaded', function() {
             formatTelefono(this);
         });
     });
+    
+    // Inicializar tablas responsive
+    initResponsiveTables();
 });
 
+/**
+ * Inicializar tablas responsive con data-labels
+ * Convierte las tablas en tarjetas verticales en móviles
+ */
+function initResponsiveTables() {
+    // Buscar todas las tablas dentro de .table-responsive
+    const tables = document.querySelectorAll('.table-responsive table');
+    
+    tables.forEach(table => {
+        // Obtener los encabezados de la tabla
+        const headers = [];
+        const headerCells = table.querySelectorAll('thead th');
+        
+        headerCells.forEach(th => {
+            headers.push(th.textContent.trim());
+        });
+        
+        // Agregar data-label a cada celda del tbody
+        const rows = table.querySelectorAll('tbody tr');
+        
+        rows.forEach(row => {
+            const cells = row.querySelectorAll('td');
+            
+            cells.forEach((cell, index) => {
+                if (headers[index]) {
+                    cell.setAttribute('data-label', headers[index]);
+                }
+            });
+        });
+    });
+}

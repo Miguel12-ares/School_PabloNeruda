@@ -77,30 +77,56 @@ class NotaController {
      * Guardar notas
      */
     public function store(): void {
-        $this->permissionMiddleware->requireAnyPermission([
-            ['modulo' => 'notas', 'accion' => 'registrar'],
-            ['modulo' => 'notas', 'accion' => 'editar_propias']
-        ]);
+        // Establecer header JSON desde el inicio
+        header('Content-Type: application/json');
         
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header('Location: index.php?controller=nota&action=index');
-            exit;
-        }
-        
-        // Verificar permisos sobre curso y materia si es maestro
-        $id_curso = $_POST['id_curso'] ?? 0;
-        $id_materia = $_POST['id_materia'] ?? 0;
-        
-        if ($this->authService->hasRole('Maestro')) {
-            $this->permissionMiddleware->requireNotaEditPermission($id_curso, $id_materia);
-        }
-        
-        $result = $this->service->saveNotas($_POST);
-        
-        if ($result['success']) {
+        try {
+            $this->permissionMiddleware->requireAnyPermission([
+                ['modulo' => 'notas', 'accion' => 'registrar'],
+                ['modulo' => 'notas', 'accion' => 'editar_propias']
+            ]);
+            
+            if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+                echo json_encode(['success' => false, 'errors' => ['general' => 'Método no permitido']]);
+                exit;
+            }
+            
+            // Debug: Registrar datos recibidos
+            error_log('POST recibido en store(): ' . print_r($_POST, true));
+            
+            // Verificar permisos sobre curso y materia si es maestro
+            $id_curso = $_POST['id_curso'] ?? 0;
+            $id_materia = $_POST['id_materia'] ?? 0;
+            $id_estudiante = $_POST['id_estudiante'] ?? 0;
+            $id_periodo = $_POST['id_periodo'] ?? 0;
+            
+            if (!$id_curso || !$id_materia) {
+                echo json_encode([
+                    'success' => false, 
+                    'errors' => ['general' => 'Faltan datos requeridos (curso o materia)'],
+                    'debug' => [
+                        'id_curso' => $id_curso,
+                        'id_materia' => $id_materia,
+                        'id_estudiante' => $id_estudiante,
+                        'id_periodo' => $id_periodo,
+                        'post_keys' => array_keys($_POST)
+                    ]
+                ]);
+                exit;
+            }
+            
+            if ($this->authService->hasRole('Maestro')) {
+                $this->permissionMiddleware->requireNotaEditPermission($id_curso, $id_materia);
+            }
+            
+            $result = $this->service->saveNotas($_POST);
             echo json_encode($result);
-        } else {
-            echo json_encode($result);
+            
+        } catch (Exception $e) {
+            echo json_encode([
+                'success' => false, 
+                'errors' => ['general' => 'Error al procesar la solicitud: ' . $e->getMessage()]
+            ]);
         }
         exit;
     }

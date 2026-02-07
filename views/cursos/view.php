@@ -165,30 +165,23 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php 
-                                $maestrosAgrupados = [];
-                                foreach ($maestros as $maestro) {
-                                    $id = $maestro['id_usuario'];
-                                    if (!isset($maestrosAgrupados[$id])) {
-                                        $maestrosAgrupados[$id] = [
-                                            'nombre' => $maestro['nombre_completo'],
-                                            'email' => $maestro['email'],
-                                            'materias' => []
-                                        ];
-                                    }
-                                    $maestrosAgrupados[$id]['materias'][] = $maestro['nombre_materia'];
-                                }
-                                ?>
-                                <?php foreach ($maestrosAgrupados as $maestro): ?>
+                                <?php foreach ($maestros as $maestro): ?>
                                     <tr>
-                                        <td><strong><?= htmlspecialchars($maestro['nombre']) ?></strong></td>
+                                        <td><strong><?= htmlspecialchars($maestro['nombre_completo']) ?></strong></td>
                                         <td><small><?= htmlspecialchars($maestro['email']) ?></small></td>
                                         <td>
-                                            <?php foreach ($maestro['materias'] as $materia): ?>
+                                            <?php 
+                                            $materias = explode(', ', $maestro['materias_imparte'] ?? '');
+                                            foreach ($materias as $materia): 
+                                                if (!empty(trim($materia))):
+                                            ?>
                                                 <span class="badge bg-primary me-1">
                                                     <?= htmlspecialchars($materia) ?>
                                                 </span>
-                                            <?php endforeach; ?>
+                                            <?php 
+                                                endif;
+                                            endforeach; 
+                                            ?>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

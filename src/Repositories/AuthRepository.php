@@ -303,18 +303,18 @@ class AuthRepository extends BaseRepository {
      */
     public function getMaestrosByCurso(int $cursoId): array {
         $stmt = $this->db->prepare("
-            SELECT DISTINCT 
+            SELECT 
                 u.id_usuario,
                 u.username,
                 u.nombre_completo,
                 u.email,
-                m.id_materia,
-                m.nombre_materia
+                GROUP_CONCAT(m.nombre_materia ORDER BY m.nombre_materia SEPARATOR ', ') as materias_imparte
             FROM usuarios u
             INNER JOIN maestro_curso mc ON u.id_usuario = mc.id_usuario
             INNER JOIN materias m ON mc.id_materia = m.id_materia
             WHERE mc.id_curso = ?
-            ORDER BY u.nombre_completo, m.nombre_materia
+            GROUP BY u.id_usuario, u.username, u.nombre_completo, u.email
+            ORDER BY u.nombre_completo
         ");
         $stmt->execute([$cursoId]);
         return $stmt->fetchAll();

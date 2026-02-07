@@ -21,6 +21,13 @@ require_once VIEWS_PATH . '/layout/header.php';
                     <div class="alert alert-warning">
                         <i class="bi bi-exclamation-triangle"></i> No hay estudiantes registrados en este curso.
                     </div>
+                <?php elseif (empty($materias)): ?>
+                    <div class="alert alert-warning">
+                        <i class="bi bi-exclamation-triangle"></i> No hay materias asignadas para este curso.
+                        <?php if (isset($_SESSION['user']['roles']) && in_array('Maestro', array_column($_SESSION['user']['roles'], 'nombre_rol'))): ?>
+                            <br><small>Como maestro, solo puedes registrar notas de las materias que impartes en este curso.</small>
+                        <?php endif; ?>
+                    </div>
                 <?php else: ?>
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
@@ -125,38 +132,80 @@ document.addEventListener('DOMContentLoaded', function() {
             const row = this.closest('.nota-row');
             const formData = new FormData();
             
-            formData.append('id_estudiante', this.dataset.estudiante);
-            formData.append('id_materia', this.dataset.materia);
-            formData.append('id_periodo', this.dataset.periodo);
+            // Obtener datos del botón
+            const idEstudiante = this.dataset.estudiante;
+            const idMateria = this.dataset.materia;
+            const idPeriodo = this.dataset.periodo;
+            const idCurso = <?= $curso['id_curso'] ?>;
+            
+            // Debug: mostrar valores antes de enviar
+            console.log('Datos a enviar:', {
+                id_estudiante: idEstudiante,
+                id_materia: idMateria,
+                id_periodo: idPeriodo,
+                id_curso: idCurso
+            });
+            
+            formData.append('id_estudiante', idEstudiante);
+            formData.append('id_materia', idMateria);
+            formData.append('id_periodo', idPeriodo);
+            formData.append('id_curso', idCurso);
             
             row.querySelectorAll('.nota-input').forEach(input => {
                 if (input.value) {
                     formData.append(input.name, input.value);
+                    console.log(`Nota ${input.name}: ${input.value}`);
                 }
             });
+            
+            // Debug: mostrar todo el FormData
+            console.log('FormData completo:');
+            for (let pair of formData.entries()) {
+                console.log(pair[0] + ': ' + pair[1]);
+            }
+            
+            // Deshabilitar botón mientras se guarda
+            this.disabled = true;
+            const originalHTML = this.innerHTML;
+            this.innerHTML = '<i class="bi bi-hourglass-split"></i> Guardando...';
             
             fetch('index.php?controller=nota&action=store', {
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.json())
+            .then(response => {
+                // Verificar si la respuesta es JSON válido
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    return response.text().then(text => {
+                        console.error('Respuesta no JSON:', text);
+                        throw new Error('La respuesta del servidor no es JSON. Ver consola para detalles.');
+                    });
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.success) {
                     this.innerHTML = '<i class="bi bi-check"></i> Guardado';
                     this.classList.remove('btn-success');
                     this.classList.add('btn-secondary');
                     setTimeout(() => {
-                        this.innerHTML = '<i class="bi bi-save"></i> Guardar';
+                        this.innerHTML = originalHTML;
                         this.classList.remove('btn-secondary');
                         this.classList.add('btn-success');
+                        this.disabled = false;
                     }, 2000);
                 } else {
-                    alert('Error al guardar: ' + JSON.stringify(data.errors));
+                    alert('Error al guardar: ' + (data.errors ? JSON.stringify(data.errors) : data.message));
+                    this.innerHTML = originalHTML;
+                    this.disabled = false;
                 }
             })
             .catch(error => {
-                alert('Error de conexión');
-                console.error(error);
+                alert('Error de conexión: ' + error.message);
+                console.error('Error completo:', error);
+                this.innerHTML = originalHTML;
+                this.disabled = false;
             });
         });
     });
