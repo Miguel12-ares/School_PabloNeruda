@@ -15,6 +15,24 @@
     --bs-primary-rgb: 30, 58, 95;
 }
 
+/* Tipografía educativa con Google Fonts */
+body {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6, .dashboard-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+.navbar-brand {
+    font-family: 'Poppins', sans-serif;
+}
+
 /* Override Bootstrap primary colors */
 .btn-primary {
     background-color: var(--primary-color);
@@ -50,14 +68,6 @@
 
 .badge.bg-primary {
     background-color: var(--primary-color) !important;
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f8f9fa;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
 }
 
 .container {
@@ -484,7 +494,12 @@ textarea:focus {
    ESTILOS PARA DASHBOARDS - TARJETAS DE ACCESO RÁPIDO
    ======================================== */
 
-/* Tarjetas de accesos rápidos en dashboards */
+/**
+ * Sistema de grilla mejorado para dashboards
+ * - Máximo 3 cards por fila en pantallas grandes
+ * - Diseño profesional y consistente
+ * - Iconos grandes con FontAwesome
+ */
 .quick-access-card {
     transition: all 0.3s ease;
     border: 1px solid rgba(0,0,0,0.05) !important;
@@ -497,9 +512,26 @@ textarea:focus {
     cursor: pointer;
 }
 
+/* Iconos grandes para las tarjetas de dashboard */
 .quick-access-icon i {
-    font-size: 3.5rem;
+    font-size: 4rem;
     display: block;
+}
+
+/* Títulos de dashboard centrados */
+.dashboard-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+/* Grid responsivo - máximo 3 columnas */
+@media (min-width: 992px) {
+    .row.justify-content-center > .col-lg-4 {
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+    }
 }
 
 /* Tarjetas de cursos en dashboard maestro */
@@ -557,7 +589,13 @@ textarea:focus {
     }
     
     .quick-access-icon i {
-        font-size: 2.5rem;
+        font-size: 3rem;
+    }
+    
+    /* En móviles, mantener una columna para mejor visualización */
+    .row.justify-content-center > .col-md-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
     }
 }
 

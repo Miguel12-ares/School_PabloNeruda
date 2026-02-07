@@ -13,10 +13,27 @@ $primaryRole = $authService->getPrimaryRole();
     <title><?= $title ?? 'Sistema Escuela Pablo Neruda' ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- FontAwesome para iconos mejorados -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts - Tipografía educativa -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
     <style>
+        /* Header mejorado */
         .navbar {
             background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%) !important;
+            padding: 1rem 2rem;
+        }
+        .navbar-brand {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .nav-link {
+            font-size: 1.05rem;
         }
         .user-badge {
             background: rgba(255,255,255,0.2);
@@ -33,7 +50,7 @@ $primaryRole = $authService->getPrimaryRole();
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold" href="/index.php">
-                <i class="bi bi-book-fill"></i> Escuela Pablo Neruda
+                Pablo Neruda
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -179,40 +196,18 @@ $primaryRole = $authService->getPrimaryRole();
                     <?php endif; ?>
                 </ul>
                 
-                <!-- Usuario actual -->
+                <!-- Usuario actual - Botones simplificados -->
                 <?php if ($authService->isAuthenticated()): ?>
                     <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle user-badge" href="#" role="button" data-bs-toggle="dropdown">
-                                <i class="bi bi-person-circle"></i>
-                                <?= htmlspecialchars($currentUser['nombre_completo']) ?>
-                                <span class="badge bg-light text-dark ms-1">
-                                    <?= htmlspecialchars($primaryRole['nombre_rol'] ?? 'Usuario') ?>
-                                </span>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/perfil.php" title="Mi Perfil">
+                                <i class="fa-solid fa-user fs-5"></i>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li class="px-3 py-2">
-                                    <small class="text-muted">Conectado como:</small><br>
-                                    <strong><?= htmlspecialchars($currentUser['username']) ?></strong>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    <a class="dropdown-item" href="/perfil.php">
-                                        <i class="bi bi-person"></i> Mi Perfil
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="/cambiar-password.php">
-                                        <i class="bi bi-key"></i> Cambiar Contraseña
-                                    </a>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    <a class="dropdown-item text-danger" href="/logout.php">
-                                        <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
-                                    </a>
-                                </li>
-                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout.php" title="Cerrar Sesión">
+                                <i class="fa-solid fa-right-from-bracket fs-5"></i>
+                            </a>
                         </li>
                     </ul>
                 <?php endif; ?>

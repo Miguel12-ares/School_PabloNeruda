@@ -1,30 +1,30 @@
 <?php require_once VIEWS_PATH . '/layout/header.php'; ?>
 
 <div class="container-fluid py-4">
-    <!-- Header del Dashboard -->
+    <!-- Header del Dashboard con FontAwesome -->
     <div class="row mb-4">
-        <div class="col-12">
-            <h1 class="h3 mb-0">
-                <i class="bi bi-person-workspace"></i> Panel Instructor
+        <div class="col-12 text-center">
+            <h1 class="h3 mb-0 dashboard-title">
+                <i class="fa-solid fa-chalkboard-user"></i> Panel Instructor
             </h1>
             <p class="text-muted">Gestión de tus cursos, materias y estudiantes asignados.</p>
         </div>
     </div>
     
-    <!-- Accesos Rápidos en Tarjetas -->
+    <!-- Accesos Rápidos en Tarjetas - Máximo 3 por fila -->
     <div class="row justify-content-center g-4 mb-4">
         <!-- Mis Cursos -->
-        <div class="col-md-6 col-lg-4 col-xl-3">
+        <div class="col-md-6 col-lg-4">
             <div class="card border-0 shadow-sm quick-access-card h-100">
                 <div class="card-body text-center p-4">
                     <div class="quick-access-icon mb-3">
-                        <i class="bi bi-book-fill text-primary"></i>
+                        <i class="fa-solid fa-book text-primary"></i>
                     </div>
                     <h5 class="card-title mb-2">Mis Cursos</h5>
                     <p class="card-text text-muted mb-3">Ver cursos asignados: <strong><?= count($cursosAsignados) ?></strong></p>
                     <div class="d-grid gap-2">
                         <a href="/index.php?controller=curso&action=index" class="btn btn-primary">
-                            <i class="bi bi-list-ul"></i> Ver Cursos
+                            <i class="fa-solid fa-list-ul"></i> Ver Cursos
                         </a>
                     </div>
                 </div>
@@ -32,17 +32,17 @@
         </div>
 
         <!-- Mis Materias -->
-        <div class="col-md-6 col-lg-4 col-xl-3">
+        <div class="col-md-6 col-lg-4">
             <div class="card border-0 shadow-sm quick-access-card h-100">
                 <div class="card-body text-center p-4">
                     <div class="quick-access-icon mb-3">
-                        <i class="bi bi-journal-text text-primary"></i>
+                        <i class="fa-solid fa-book-open text-primary"></i>
                     </div>
                     <h5 class="card-title mb-2">Mis Materias</h5>
                     <p class="card-text text-muted mb-3">Materias que imparto: <strong><?= count($materiasAsignadas) ?></strong></p>
                     <div class="d-grid gap-2">
                         <a href="/index.php?controller=materia&action=index" class="btn btn-primary">
-                            <i class="bi bi-journal"></i> Ver Materias
+                            <i class="fa-solid fa-book-bookmark"></i> Ver Materias
                         </a>
                     </div>
                 </div>
@@ -50,17 +50,17 @@
         </div>
 
         <!-- Registrar Notas -->
-        <div class="col-md-6 col-lg-4 col-xl-3">
+        <div class="col-md-6 col-lg-4">
             <div class="card border-0 shadow-sm quick-access-card h-100">
                 <div class="card-body text-center p-4">
                     <div class="quick-access-icon mb-3">
-                        <i class="bi bi-pencil-square text-primary"></i>
+                        <i class="fa-solid fa-pen-to-square text-primary"></i>
                     </div>
                     <h5 class="card-title mb-2">Registrar Notas</h5>
                     <p class="card-text text-muted mb-3">Registrar y gestionar calificaciones.</p>
                     <div class="d-grid gap-2">
                         <a href="/index.php?controller=nota&action=index" class="btn btn-primary">
-                            <i class="bi bi-clipboard-check"></i> Registrar Notas
+                            <i class="fa-solid fa-clipboard-check"></i> Registrar Notas
                         </a>
                     </div>
                 </div>
@@ -69,17 +69,17 @@
 
         <!-- Estudiantes con Alerta -->
         <?php if (count($estudiantesConAlerta) > 0): ?>
-        <div class="col-md-6 col-lg-4 col-xl-3">
+        <div class="col-md-6 col-lg-4">
             <div class="card border-0 shadow-sm quick-access-card h-100">
                 <div class="card-body text-center p-4">
                     <div class="quick-access-icon mb-3">
-                        <i class="bi bi-exclamation-triangle-fill text-primary"></i>
+                        <i class="fa-solid fa-triangle-exclamation text-primary"></i>
                     </div>
                     <h5 class="card-title mb-2">Estudiantes en Alerta</h5>
                     <p class="card-text text-muted mb-3">Con promedio bajo: <strong><?= count($estudiantesConAlerta) ?></strong></p>
                     <div class="d-grid gap-2">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#alertasModal">
-                            <i class="bi bi-eye"></i> Ver Alertas
+                            <i class="fa-solid fa-eye"></i> Ver Alertas
                         </button>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
         <div class="col-12">
             <div class="card border-0 shadow-sm">
                 <div class="card-header bg-white border-0 py-3">
-                    <h5 class="mb-0"><i class="bi bi-journal-bookmark-fill"></i> Mis Materias Asignadas</h5>
+                    <h5 class="mb-0"><i class="fa-solid fa-book-bookmark"></i> Mis Materias Asignadas</h5>
                 </div>
                 <div class="card-body">
                     <div class="row g-3">
@@ -102,7 +102,7 @@
                             <div class="col-md-6 col-lg-3">
                                 <div class="card border-primary h-100">
                                     <div class="card-body text-center">
-                                        <i class="bi bi-journal-bookmark-fill text-primary fs-1 mb-2"></i>
+                                        <i class="fa-solid fa-book-bookmark text-primary fs-1 mb-2"></i>
                                         <h6 class="mb-0"><?= htmlspecialchars($materia['nombre_materia']) ?></h6>
                                     </div>
                                 </div>
@@ -120,13 +120,13 @@
         <div class="col-12">
             <div class="card border-0 shadow-sm">
                 <div class="card-header bg-white border-0 py-3">
-                    <h5 class="mb-0"><i class="bi bi-grid-3x3-gap-fill"></i> Mis Cursos Asignados</h5>
+                    <h5 class="mb-0"><i class="fa-solid fa-grid"></i> Mis Cursos Asignados</h5>
                     <p class="text-muted small mb-0">Haz clic en un curso para ver los detalles completos y gestionar notas</p>
                 </div>
                 <div class="card-body">
                     <?php if (empty($estadisticasPorCurso)): ?>
                         <div class="alert alert-info">
-                            <i class="bi bi-info-circle"></i> No tienes cursos asignados actualmente
+                            <i class="fa-solid fa-info-circle"></i> No tienes cursos asignados actualmente
                         </div>
                     <?php else: ?>
                         <div class="row g-4">
@@ -138,7 +138,7 @@
                                         <div class="card-header text-white" 
                                              style="background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);">
                                             <h5 class="mb-0">
-                                                <i class="bi bi-mortarboard-fill"></i> 
+                                                <i class="fa-solid fa-graduation-cap"></i> 
                                                 <?= htmlspecialchars($data['curso']['nombre_curso']) ?>
                                             </h5>
                                             <small class="opacity-75">
@@ -184,7 +184,7 @@
                                             
                                             <!-- Materias que imparte -->
                                             <div class="mb-3">
-                                                <h6 class="mb-2 small"><i class="bi bi-journal"></i> Tus Materias:</h6>
+                                                <h6 class="mb-2 small"><i class="fa-solid fa-book"></i> Tus Materias:</h6>
                                                 <div class="d-flex gap-1 flex-wrap">
                                                     <?php foreach ($data['materias'] as $materia): ?>
                                                         <span class="badge" style="background-color: #1e3a5f; font-size: 0.7rem;">
@@ -199,18 +199,18 @@
                                                 <a href="/index.php?controller=curso&action=detalle&id=<?= $data['curso']['id_curso'] ?>" 
                                                    class="btn btn-sm" style="background-color: #1e3a5f; color: white;"
                                                    onclick="event.stopPropagation();">
-                                                    <i class="bi bi-eye"></i> Ver Detalles
+                                                    <i class="fa-solid fa-eye"></i> Ver Detalles
                                                 </a>
                                                 <div class="btn-group" role="group">
                                                     <a href="/index.php?controller=estudiante&action=index&curso=<?= $data['curso']['id_curso'] ?>" 
                                                        class="btn btn-sm btn-outline-primary"
                                                        onclick="event.stopPropagation();">
-                                                        <i class="bi bi-people"></i> Estudiantes
+                                                        <i class="fa-solid fa-users"></i> Estudiantes
                                                     </a>
                                                     <a href="/index.php?controller=nota&action=registrar&id_curso=<?= $data['curso']['id_curso'] ?>&id_periodo=1" 
                                                        class="btn btn-sm btn-outline-success"
                                                        onclick="event.stopPropagation();">
-                                                        <i class="bi bi-pencil-square"></i> Notas
+                                                        <i class="fa-solid fa-pen-to-square"></i> Notas
                                                     </a>
                                                 </div>
                                             </div>
