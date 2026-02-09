@@ -213,5 +213,62 @@ class NotaRepository extends BaseRepository {
         $stmt->execute([$cursoId]);
         return $stmt->fetch() ?: [];
     }
+    
+    /**
+     * Obtener estudiantes reprobados con detalle completo (materias y notas)
+     */
+    public function findReprobadosDetalladoByPeriodo(int $id_periodo): array {
+        $sql = "SELECT e.id_estudiante, e.nombre, e.apellido, e.registro_civil, 
+                       c.nombre_curso, c.grado, c.seccion, c.jornada,
+                       m.nombre_materia, n.nota_1, n.nota_2, n.nota_3, n.nota_4, n.nota_5, 
+                       n.promedio, n.estado
+                FROM notas n
+                INNER JOIN estudiantes e ON n.id_estudiante = e.id_estudiante
+                INNER JOIN cursos c ON e.id_curso = c.id_curso
+                INNER JOIN materias m ON n.id_materia = m.id_materia
+                WHERE n.id_periodo = ? AND n.estado = 'reprobado'
+                ORDER BY e.apellido, e.nombre, m.nombre_materia";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id_periodo]);
+        return $stmt->fetchAll();
+    }
+    
+    /**
+     * Obtener estudiantes reprobados por curso con detalle
+     */
+    public function findReprobadosDetalladoByPeriodoAndCurso(int $id_periodo, int $id_curso): array {
+        $sql = "SELECT e.id_estudiante, e.nombre, e.apellido, e.registro_civil, 
+                       c.nombre_curso, c.grado, c.seccion, c.jornada,
+                       m.nombre_materia, n.nota_1, n.nota_2, n.nota_3, n.nota_4, n.nota_5, 
+                       n.promedio, n.estado
+                FROM notas n
+                INNER JOIN estudiantes e ON n.id_estudiante = e.id_estudiante
+                INNER JOIN cursos c ON e.id_curso = c.id_curso
+                INNER JOIN materias m ON n.id_materia = m.id_materia
+                WHERE n.id_periodo = ? AND e.id_curso = ? AND n.estado = 'reprobado'
+                ORDER BY e.apellido, e.nombre, m.nombre_materia";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id_periodo, $id_curso]);
+        return $stmt->fetchAll();
+    }
+    
+    /**
+     * Obtener estudiantes reprobados por estudiante específico
+     */
+    public function findReprobadosDetalladoByPeriodoAndEstudiante(int $id_periodo, int $id_estudiante): array {
+        $sql = "SELECT e.id_estudiante, e.nombre, e.apellido, e.registro_civil, 
+                       c.nombre_curso, c.grado, c.seccion, c.jornada,
+                       m.nombre_materia, n.nota_1, n.nota_2, n.nota_3, n.nota_4, n.nota_5, 
+                       n.promedio, n.estado
+                FROM notas n
+                INNER JOIN estudiantes e ON n.id_estudiante = e.id_estudiante
+                INNER JOIN cursos c ON e.id_curso = c.id_curso
+                INNER JOIN materias m ON n.id_materia = m.id_materia
+                WHERE n.id_periodo = ? AND e.id_estudiante = ? AND n.estado = 'reprobado'
+                ORDER BY m.nombre_materia";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id_periodo, $id_estudiante]);
+        return $stmt->fetchAll();
+    }
 }
 

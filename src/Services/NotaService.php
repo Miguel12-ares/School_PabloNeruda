@@ -194,5 +194,26 @@ class NotaService {
     public function getEstudiantesEnRiesgoPorCurso(int $cursoId): array {
         return $this->notaRepo->getEstudiantesEnRiesgoPorCurso($cursoId);
     }
+    
+    /**
+     * Obtener estudiantes reprobados con detalle completo
+     */
+    public function getReprobadosDetallado(int $id_periodo): array {
+        return $this->notaRepo->findReprobadosDetalladoByPeriodo($id_periodo);
+    }
+    
+    /**
+     * Obtener estudiantes reprobados por curso con detalle
+     */
+    public function getReprobadosDetalladoPorCurso(int $id_periodo, int $id_curso): array {
+        return $this->notaRepo->findReprobadosDetalladoByPeriodoAndCurso($id_periodo, $id_curso);
+    }
+    
+    /**
+     * Obtener estudiantes reprobados por estudiante específico
+     */
+    public function getReprobadosDetalladoPorEstudiante(int $id_periodo, int $id_estudiante): array {
+        return $this->notaRepo->findReprobadosDetalladoByPeriodoAndEstudiante($id_periodo, $id_estudiante);
+    }
 }
 

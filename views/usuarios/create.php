@@ -2,91 +2,124 @@
 
 <div class="container-fluid py-4">
     <div class="row mb-4">
-        <div class="col-md-8">
-            <h2><i class="bi bi-person-plus"></i> Crear Nuevo Usuario</h2>
-            <p class="text-muted">Completa el formulario para registrar un nuevo usuario en el sistema</p>
-        </div>
-        <div class="col-md-4 text-end">
-            <a href="/index.php?controller=usuario&action=index" class="btn btn-secondary">
-                <i class="bi bi-arrow-left"></i> Volver al Listado
-            </a>
+        <div class="col-12 text-center">
+            <h2 class="fw-bold mb-3"><i class="fas fa-user-plus"></i> Crear Nuevo Usuario</h2>
+            <p class="text-muted">Complete el formulario para registrar un nuevo usuario en el sistema</p>
         </div>
     </div>
     
     <div class="row">
-        <div class="col-lg-8">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <form method="POST" action="/index.php?controller=usuario&action=store" id="formUsuario">
-                        <!-- Información Básica -->
-                        <h5 class="mb-3"><i class="bi bi-person-badge"></i> Información Básica</h5>
-                        
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="username" class="form-label">Usuario *</label>
-                                <input type="text" class="form-control" id="username" name="username" required>
-                                <small class="text-muted">Sin espacios, solo letras y números</small>
+        <div class="col-lg-10 mx-auto">
+            <form method="POST" action="/index.php?controller=usuario&action=store" id="formUsuario">
+                
+                <!-- Información Básica -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="fas fa-user-circle"></i> Información Básica</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="username" class="form-label">
+                                    <i class="fas fa-user text-primary"></i> Usuario <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="username" name="username" 
+                                       placeholder="nombre.usuario" required>
+                                <small class="text-muted">Sin espacios, solo letras, números, punto y guion bajo</small>
                             </div>
-                            <div class="col-md-6">
-                                <label for="email" class="form-label">Email *</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">
+                                    <i class="fas fa-envelope text-primary"></i> Email <span class="text-danger">*</span>
+                                </label>
+                                <input type="email" class="form-control" id="email" name="email" 
+                                       placeholder="usuario@ejemplo.com" required>
                             </div>
                         </div>
                         
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                <label for="nombre_completo" class="form-label">Nombre Completo *</label>
-                                <input type="text" class="form-control" id="nombre_completo" name="nombre_completo" required>
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label for="nombre_completo" class="form-label">
+                                    <i class="fas fa-id-card text-primary"></i> Nombre Completo <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="nombre_completo" name="nombre_completo" 
+                                       placeholder="Nombre y apellidos completos" required>
                             </div>
                         </div>
                         
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="password" class="form-label">Contraseña *</label>
-                                <input type="password" class="form-control" id="password" name="password" required minlength="8">
-                                <small class="text-muted">Mínimo 8 caracteres</small>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="password" class="form-label">
+                                    <i class="fas fa-lock text-primary"></i> Contraseña <span class="text-danger">*</span>
+                                </label>
+                                <input type="password" class="form-control" id="password" name="password" 
+                                       minlength="8" placeholder="Mínimo 8 caracteres" required>
+                                <small class="text-muted">La contraseña debe tener al menos 8 caracteres</small>
                             </div>
-                            <div class="col-md-6">
-                                <label for="estado" class="form-label">Estado *</label>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="estado" class="form-label">
+                                    <i class="fas fa-toggle-on text-primary"></i> Estado <span class="text-danger">*</span>
+                                </label>
                                 <select class="form-select" id="estado" name="estado" required>
                                     <option value="activo" selected>Activo</option>
                                     <option value="inactivo">Inactivo</option>
                                 </select>
                             </div>
                         </div>
-                        
-                        <hr class="my-4">
-                        
-                        <!-- Roles -->
-                        <h5 class="mb-3"><i class="bi bi-shield-check"></i> Asignación de Roles</h5>
-                        
-                        <div class="mb-3">
-                            <?php foreach ($roles as $rol): ?>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="roles[]" 
-                                           value="<?= $rol['id_rol'] ?>" id="rol_<?= $rol['id_rol'] ?>"
-                                           onchange="toggleMaestroSection()">
-                                    <label class="form-check-label" for="rol_<?= $rol['id_rol'] ?>">
-                                        <strong><?= htmlspecialchars($rol['nombre_rol']) ?></strong>
-                                        <span class="badge bg-secondary">Nivel <?= $rol['nivel_acceso'] ?></span>
-                                        <br>
-                                        <small class="text-muted"><?= htmlspecialchars($rol['descripcion']) ?></small>
-                                    </label>
+                    </div>
+                </div>
+                
+                <!-- Asignación de Roles -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="fas fa-user-tag"></i> Asignación de Roles</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted mb-3">
+                            <i class="fas fa-info-circle"></i> Seleccione uno o más roles para el usuario
+                        </p>
+                        <?php foreach ($roles as $rol): ?>
+                            <div class="card mb-3 border">
+                                <div class="card-body">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="roles[]" 
+                                               value="<?= $rol['id_rol'] ?>" id="rol_<?= $rol['id_rol'] ?>"
+                                               onchange="toggleMaestroSection()">
+                                        <label class="form-check-label w-100" for="rol_<?= $rol['id_rol'] ?>">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <strong class="fs-5"><?= htmlspecialchars($rol['nombre_rol']) ?></strong>
+                                                    <span class="badge bg-primary ms-2">Nivel <?= $rol['nivel_acceso'] ?></span>
+                                                </div>
+                                            </div>
+                                            <p class="text-muted mb-0 mt-1"><?= htmlspecialchars($rol['descripcion']) ?></p>
+                                        </label>
+                                    </div>
                                 </div>
-                            <?php endforeach; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                
+                <!-- Asignación de Cursos y Materias (solo para Maestros) -->
+                <div id="seccionMaestro" style="display: none;">
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-chalkboard-teacher"></i> Asignación de Cursos y Materias</h5>
                         </div>
-                        
-                        <!-- Asignación de Cursos (solo para Maestros) -->
-                        <div id="seccionMaestro" style="display: none;">
-                            <hr class="my-4">
-                            <h5 class="mb-3"><i class="bi bi-book"></i> Asignación de Cursos y Materias</h5>
-                            <p class="text-muted">Selecciona los cursos y materias que impartirá este maestro</p>
+                        <div class="card-body">
+                            <p class="text-muted mb-3">
+                                <i class="fas fa-info-circle"></i> Seleccione los cursos y materias que impartirá este maestro
+                            </p>
                             
                             <div id="asignacionesContainer">
-                                <div class="asignacion-item mb-3 p-3 border rounded">
+                                <div class="asignacion-item mb-3 p-3 border rounded bg-light">
                                     <div class="row">
-                                        <div class="col-md-5">
-                                            <label class="form-label">Curso</label>
+                                        <div class="col-md-5 mb-2">
+                                            <label class="form-label">
+                                                <i class="fas fa-book text-primary"></i> Curso
+                                            </label>
                                             <select class="form-select" name="asignaciones[0][curso]">
                                                 <option value="">Seleccionar curso...</option>
                                                 <?php foreach ($cursos as $curso): ?>
@@ -96,8 +129,10 @@
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
-                                        <div class="col-md-5">
-                                            <label class="form-label">Materia</label>
+                                        <div class="col-md-5 mb-2">
+                                            <label class="form-label">
+                                                <i class="fas fa-book-open text-primary"></i> Materia
+                                            </label>
                                             <select class="form-select" name="asignaciones[0][materia]">
                                                 <option value="">Seleccionar materia...</option>
                                                 <?php foreach ($materias as $materia): ?>
@@ -107,49 +142,36 @@
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
-                                        <div class="col-md-2 d-flex align-items-end">
-                                            <button type="button" class="btn btn-danger btn-sm" onclick="eliminarAsignacion(this)">
-                                                <i class="bi bi-trash"></i>
+                                        <div class="col-md-2 d-flex align-items-end mb-2">
+                                            <button type="button" class="btn btn-danger btn-sm w-100" onclick="eliminarAsignacion(this)">
+                                                <i class="fas fa-trash-alt"></i> Eliminar
                                             </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             
-                            <button type="button" class="btn btn-sm btn-outline-primary" onclick="agregarAsignacion()">
-                                <i class="bi bi-plus-circle"></i> Agregar Otra Asignación
+                            <button type="button" class="btn btn-outline-primary" onclick="agregarAsignacion()">
+                                <i class="fas fa-plus-circle"></i> Agregar Otra Asignación
                             </button>
                         </div>
-                        
-                        <hr class="my-4">
-                        
-                        <!-- Botones -->
-                        <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-save"></i> Crear Usuario
-                            </button>
+                    </div>
+                </div>
+                
+                <!-- Botones -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
                             <a href="/index.php?controller=usuario&action=index" class="btn btn-secondary">
-                                <i class="bi bi-x-circle"></i> Cancelar
+                                <i class="fas fa-times"></i> Cancelar
                             </a>
+                            <button type="submit" class="btn btn-primary px-5">
+                                <i class="fas fa-save"></i> Crear Usuario
+                            </button>
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
-        </div>
-        
-        <div class="col-lg-4">
-            <div class="card border-0 shadow-sm bg-light">
-                <div class="card-body">
-                    <h6 class="card-title"><i class="bi bi-info-circle"></i> Información</h6>
-                    <ul class="small mb-0">
-                        <li>El <strong>username</strong> debe ser único</li>
-                        <li>El <strong>email</strong> debe ser válido y único</li>
-                        <li>La contraseña será hasheada automáticamente</li>
-                        <li>Puedes asignar múltiples roles a un usuario</li>
-                        <li>Si asignas rol <strong>Maestro</strong>, debes seleccionar cursos y materias</li>
-                    </ul>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -171,10 +193,12 @@ function toggleMaestroSection() {
 function agregarAsignacion() {
     const container = document.getElementById('asignacionesContainer');
     const nuevaAsignacion = `
-        <div class="asignacion-item mb-3 p-3 border rounded">
+        <div class="asignacion-item mb-3 p-3 border rounded bg-light">
             <div class="row">
-                <div class="col-md-5">
-                    <label class="form-label">Curso</label>
+                <div class="col-md-5 mb-2">
+                    <label class="form-label">
+                        <i class="fas fa-book text-primary"></i> Curso
+                    </label>
                     <select class="form-select" name="asignaciones[${contadorAsignaciones}][curso]">
                         <option value="">Seleccionar curso...</option>
                         <?php foreach ($cursos as $curso): ?>
@@ -184,8 +208,10 @@ function agregarAsignacion() {
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <div class="col-md-5">
-                    <label class="form-label">Materia</label>
+                <div class="col-md-5 mb-2">
+                    <label class="form-label">
+                        <i class="fas fa-book-open text-primary"></i> Materia
+                    </label>
                     <select class="form-select" name="asignaciones[${contadorAsignaciones}][materia]">
                         <option value="">Seleccionar materia...</option>
                         <?php foreach ($materias as $materia): ?>
@@ -195,9 +221,9 @@ function agregarAsignacion() {
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <div class="col-md-2 d-flex align-items-end">
-                    <button type="button" class="btn btn-danger btn-sm" onclick="eliminarAsignacion(this)">
-                        <i class="bi bi-trash"></i>
+                <div class="col-md-2 d-flex align-items-end mb-2">
+                    <button type="button" class="btn btn-danger btn-sm w-100" onclick="eliminarAsignacion(this)">
+                        <i class="fas fa-trash-alt"></i> Eliminar
                     </button>
                 </div>
             </div>

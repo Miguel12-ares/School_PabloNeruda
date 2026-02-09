@@ -47,9 +47,18 @@ class NotaController {
         
         $id_curso = $_GET['id_curso'] ?? 0;
         $id_periodo = $_GET['id_periodo'] ?? 0;
+        $id_materia_filtro = $_GET['id_materia'] ?? null;
         
         if (!$id_curso || !$id_periodo) {
             $_SESSION['error'] = 'Debe seleccionar un curso y un periodo';
+            header('Location: index.php?controller=nota&action=index');
+            exit;
+        }
+        
+        // Verificar que el periodo permita registrar notas
+        $validacionPeriodo = $this->periodoService->periodoPermiteNotas($id_periodo);
+        if (!$validacionPeriodo['permite']) {
+            $_SESSION['error'] = $validacionPeriodo['mensaje'];
             header('Location: index.php?controller=nota&action=index');
             exit;
         }
@@ -91,10 +100,6 @@ class NotaController {
                 exit;
             }
             
-            // Debug: Registrar datos recibidos
-            error_log('POST recibido en store(): ' . print_r($_POST, true));
-            
-            // Verificar permisos sobre curso y materia si es maestro
             $id_curso = $_POST['id_curso'] ?? 0;
             $id_materia = $_POST['id_materia'] ?? 0;
             $id_estudiante = $_POST['id_estudiante'] ?? 0;
@@ -103,14 +108,17 @@ class NotaController {
             if (!$id_curso || !$id_materia) {
                 echo json_encode([
                     'success' => false, 
-                    'errors' => ['general' => 'Faltan datos requeridos (curso o materia)'],
-                    'debug' => [
-                        'id_curso' => $id_curso,
-                        'id_materia' => $id_materia,
-                        'id_estudiante' => $id_estudiante,
-                        'id_periodo' => $id_periodo,
-                        'post_keys' => array_keys($_POST)
-                    ]
+                    'errors' => ['general' => 'Faltan datos requeridos (curso o materia)']
+                ]);
+                exit;
+            }
+            
+            // Validar que el periodo permita registrar notas
+            $validacionPeriodo = $this->periodoService->periodoPermiteNotas($id_periodo);
+            if (!$validacionPeriodo['permite']) {
+                echo json_encode([
+                    'success' => false, 
+                    'errors' => ['general' => $validacionPeriodo['mensaje']]
                 ]);
                 exit;
             }

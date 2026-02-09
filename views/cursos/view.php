@@ -2,18 +2,21 @@
 
 <div class="container-fluid py-4">
     <div class="row mb-4">
-        <div class="col-md-8">
-            <h2><i class="bi bi-book-fill"></i> <?= htmlspecialchars($curso['nombre_curso']) ?></h2>
+        <div class="col-12 text-center">
+            <h2 class="fw-bold mb-2"><i class="fas fa-book-open"></i> <?= htmlspecialchars($curso['nombre_curso']) ?></h2>
             <p class="text-muted">Detalle completo del curso</p>
         </div>
-        <div class="col-md-4 text-end">
+    </div>
+    
+    <div class="row mb-3">
+        <div class="col-12 text-end">
             <?php if ($permissionMiddleware->checkPermission('cursos', 'editar')): ?>
                 <a href="/index.php?controller=curso&action=edit&id=<?= $curso['id_curso'] ?>" class="btn btn-primary">
-                    <i class="bi bi-pencil"></i> Editar
+                    <i class="fas fa-edit"></i> Editar
                 </a>
             <?php endif; ?>
             <a href="/index.php?controller=curso&action=index" class="btn btn-secondary">
-                <i class="bi bi-arrow-left"></i> Volver
+                <i class="fas fa-arrow-left"></i> Volver
             </a>
         </div>
     </div>
@@ -23,7 +26,7 @@
         <div class="col-lg-4">
             <div class="card border-0 shadow-sm mb-4">
                 <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0"><i class="bi bi-info-circle"></i> Información del Curso</h5>
+                    <h5 class="mb-0"><i class="fas fa-info-circle"></i> Información del Curso</h5>
                 </div>
                 <div class="card-body">
                     <table class="table table-sm">
@@ -39,9 +42,9 @@
                             <th>Grado:</th>
                             <td>
                                 <?php if ($curso['grado'] == 0): ?>
-                                    <span class="badge bg-info">Preescolar</span>
+                                    <span class="badge bg-warning text-dark">0° (Preescolar)</span>
                                 <?php else: ?>
-                                    <?= $curso['grado'] ?>° Grado
+                                    <span class="badge bg-primary"><?= $curso['grado'] ?>° Grado</span>
                                 <?php endif; ?>
                             </td>
                         </tr>
@@ -64,7 +67,7 @@
             <!-- Estadísticas -->
             <div class="card border-0 shadow-sm">
                 <div class="card-header bg-success text-white">
-                    <h5 class="mb-0"><i class="bi bi-bar-chart"></i> Estadísticas</h5>
+                    <h5 class="mb-0"><i class="fas fa-chart-bar"></i> Estadísticas</h5>
                 </div>
                 <div class="card-body">
                     <div class="mb-3">
@@ -84,18 +87,16 @@
                     <div class="mb-3">
                         <small class="text-muted">Ocupación</small>
                         <?php 
-                        $porcentaje = $curso['capacidad_maxima'] > 0 
-                            ? (count($estudiantes) / $curso['capacidad_maxima']) * 100 
-                            : 0;
+                        $totalEstudiantes = count($estudiantes);
+                        $capacidad = $curso['capacidad_maxima'];
+                        $porcentaje = $capacidad > 0 ? ($totalEstudiantes / $capacidad) * 100 : 0;
                         $colorBarra = $porcentaje >= 90 ? 'danger' : ($porcentaje >= 75 ? 'warning' : 'success');
                         ?>
-                        <div class="progress" style="height: 25px;">
-                            <div class="progress-bar bg-<?= $colorBarra ?>" 
-                                 role="progressbar" 
-                                 style="width: <?= min($porcentaje, 100) ?>%">
-                                <?= number_format($porcentaje, 1) ?>%
-                            </div>
-                        </div>
+                        <h4 class="mb-0">
+                            <span class="badge bg-<?= $colorBarra ?> fs-5">
+                                <?= $totalEstudiantes ?> / <?= $capacidad ?>
+                            </span>
+                        </h4>
                     </div>
                 </div>
             </div>
@@ -105,7 +106,7 @@
         <div class="col-lg-8">
             <div class="card border-0 shadow-sm mb-4">
                 <div class="card-header bg-white border-0 py-3">
-                    <h5 class="mb-0"><i class="bi bi-people-fill"></i> Estudiantes del Curso (<?= count($estudiantes) ?>)</h5>
+                    <h5 class="mb-0"><i class="fas fa-users"></i> Estudiantes del Curso (<?= count($estudiantes) ?>)</h5>
                 </div>
                 <div class="card-body">
                     <?php if (empty($estudiantes)): ?>
@@ -136,7 +137,7 @@
                                             <td>
                                                 <a href="/index.php?controller=estudiante&action=view&id=<?= $estudiante['id_estudiante'] ?>" 
                                                    class="btn btn-sm btn-outline-info">
-                                                    <i class="bi bi-eye"></i> Ver
+                                                    <i class="fas fa-eye"></i> Ver
                                                 </a>
                                             </td>
                                         </tr>
@@ -152,7 +153,7 @@
             <?php if (!empty($maestros)): ?>
             <div class="card border-0 shadow-sm">
                 <div class="card-header bg-white border-0 py-3">
-                    <h5 class="mb-0"><i class="bi bi-person-badge"></i> Maestros Asignados (<?= count($maestros) ?>)</h5>
+                    <h5 class="mb-0"><i class="fas fa-chalkboard-teacher"></i> Maestros Asignados (<?= count($maestros) ?>)</h5>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

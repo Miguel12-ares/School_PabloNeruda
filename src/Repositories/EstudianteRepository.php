@@ -135,5 +135,22 @@ class EstudianteRepository extends BaseRepository {
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll();
     }
+    
+    /**
+     * Obtener estudiantes con alergias por curso
+     */
+    public function findWithAlergiasByCurso(int $id_curso): array {
+        $sql = "SELECT e.*, c.nombre_curso,
+                       GROUP_CONCAT(ae.tipo_alergia SEPARATOR ', ') as alergias
+                FROM estudiantes e
+                INNER JOIN cursos c ON e.id_curso = c.id_curso
+                LEFT JOIN alergias_estudiante ae ON e.id_estudiante = ae.id_estudiante
+                WHERE e.tiene_alergias = 1 AND e.id_curso = ?
+                GROUP BY e.id_estudiante
+                ORDER BY e.apellido, e.nombre";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id_curso]);
+        return $stmt->fetchAll();
+    }
 }
 

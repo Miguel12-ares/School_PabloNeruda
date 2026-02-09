@@ -2,13 +2,16 @@
 
 <div class="container-fluid py-4">
     <div class="row mb-4">
-        <div class="col-md-8">
-            <h2><i class="bi bi-plus-circle"></i> Crear Nuevo Curso</h2>
+        <div class="col-12 text-center">
+            <h2 class="fw-bold mb-2"><i class="fas fa-plus-circle"></i> Crear Nuevo Curso</h2>
             <p class="text-muted">Registra un nuevo curso en el sistema</p>
         </div>
-        <div class="col-md-4 text-end">
+    </div>
+    
+    <div class="row mb-3">
+        <div class="col-12 text-end">
             <a href="/index.php?controller=curso&action=index" class="btn btn-secondary">
-                <i class="bi bi-arrow-left"></i> Volver
+                <i class="fas fa-arrow-left"></i> Volver
             </a>
         </div>
     </div>
@@ -52,7 +55,7 @@
                                     <option value="0" <?= ($_SESSION['old']['grado'] ?? '') == '0' ? 'selected' : '' ?>>
                                         Preescolar
                                     </option>
-                                    <?php for ($i = 1; $i <= 11; $i++): ?>
+                                    <?php for ($i = 1; $i <= 5; $i++): ?>
                                         <option value="<?= $i ?>" <?= ($_SESSION['old']['grado'] ?? '') == $i ? 'selected' : '' ?>>
                                             <?= $i ?>° Grado
                                         </option>
@@ -69,13 +72,15 @@
                                 <label for="seccion" class="form-label">
                                     Sección
                                 </label>
-                                <input type="text" 
-                                       class="form-control" 
-                                       id="seccion" 
-                                       name="seccion" 
-                                       value="<?= htmlspecialchars($_SESSION['old']['seccion'] ?? '') ?>"
-                                       placeholder="Ej: A, B, C"
-                                       maxlength="5">
+                                <select class="form-select" id="seccion" name="seccion">
+                                    <option value="">Sin sección</option>
+                                    <option value="A" <?= ($_SESSION['old']['seccion'] ?? '') === 'A' ? 'selected' : '' ?>>A</option>
+                                    <option value="B" <?= ($_SESSION['old']['seccion'] ?? '') === 'B' ? 'selected' : '' ?>>B</option>
+                                    <option value="C" <?= ($_SESSION['old']['seccion'] ?? '') === 'C' ? 'selected' : '' ?>>C</option>
+                                    <option value="D" <?= ($_SESSION['old']['seccion'] ?? '') === 'D' ? 'selected' : '' ?>>D</option>
+                                    <option value="E" <?= ($_SESSION['old']['seccion'] ?? '') === 'E' ? 'selected' : '' ?>>E</option>
+                                    <option value="F" <?= ($_SESSION['old']['seccion'] ?? '') === 'F' ? 'selected' : '' ?>>F</option>
+                                </select>
                                 <small class="text-muted">Opcional</small>
                             </div>
                         </div>
@@ -91,12 +96,6 @@
                                     </option>
                                     <option value="tarde" <?= ($_SESSION['old']['jornada'] ?? '') === 'tarde' ? 'selected' : '' ?>>
                                         Tarde
-                                    </option>
-                                    <option value="noche" <?= ($_SESSION['old']['jornada'] ?? '') === 'noche' ? 'selected' : '' ?>>
-                                        Noche
-                                    </option>
-                                    <option value="completa" <?= ($_SESSION['old']['jornada'] ?? '') === 'completa' ? 'selected' : '' ?>>
-                                        Jornada Completa
                                     </option>
                                 </select>
                             </div>
@@ -147,7 +146,7 @@
                     </p>
                     <p class="small">
                         <strong>Sección:</strong> Útil cuando hay múltiples grupos del mismo grado. 
-                        Por ejemplo: A, B, C.
+                        Selecciona de A a F según corresponda.
                     </p>
                     <p class="small">
                         <strong>Capacidad Máxima:</strong> Define cuántos estudiantes pueden matricularse. 

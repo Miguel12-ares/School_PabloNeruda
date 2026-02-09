@@ -2,13 +2,16 @@
 
 <div class="container-fluid py-4">
     <div class="row mb-4">
-        <div class="col-md-8">
-            <h2><i class="bi bi-pencil"></i> Editar Curso</h2>
+        <div class="col-12 text-center">
+            <h2 class="fw-bold mb-2"><i class="fas fa-edit"></i> Editar Curso</h2>
             <p class="text-muted">Modifica la información del curso</p>
         </div>
-        <div class="col-md-4 text-end">
+    </div>
+    
+    <div class="row mb-3">
+        <div class="col-12 text-end">
             <a href="/index.php?controller=curso&action=index" class="btn btn-secondary">
-                <i class="bi bi-arrow-left"></i> Volver
+                <i class="fas fa-arrow-left"></i> Volver
             </a>
         </div>
     </div>
@@ -49,7 +52,7 @@
                                     <option value="0" <?= ($curso['grado'] ?? '') == '0' ? 'selected' : '' ?>>
                                         Preescolar
                                     </option>
-                                    <?php for ($i = 1; $i <= 11; $i++): ?>
+                                    <?php for ($i = 1; $i <= 5; $i++): ?>
                                         <option value="<?= $i ?>" <?= ($curso['grado'] ?? '') == $i ? 'selected' : '' ?>>
                                             <?= $i ?>° Grado
                                         </option>
@@ -61,12 +64,15 @@
                                 <label for="seccion" class="form-label">
                                     Sección
                                 </label>
-                                <input type="text" 
-                                       class="form-control" 
-                                       id="seccion" 
-                                       name="seccion" 
-                                       value="<?= htmlspecialchars($curso['seccion'] ?? '') ?>"
-                                       maxlength="5">
+                                <select class="form-select" id="seccion" name="seccion">
+                                    <option value="">Sin sección</option>
+                                    <option value="A" <?= ($curso['seccion'] ?? '') === 'A' ? 'selected' : '' ?>>A</option>
+                                    <option value="B" <?= ($curso['seccion'] ?? '') === 'B' ? 'selected' : '' ?>>B</option>
+                                    <option value="C" <?= ($curso['seccion'] ?? '') === 'C' ? 'selected' : '' ?>>C</option>
+                                    <option value="D" <?= ($curso['seccion'] ?? '') === 'D' ? 'selected' : '' ?>>D</option>
+                                    <option value="E" <?= ($curso['seccion'] ?? '') === 'E' ? 'selected' : '' ?>>E</option>
+                                    <option value="F" <?= ($curso['seccion'] ?? '') === 'F' ? 'selected' : '' ?>>F</option>
+                                </select>
                             </div>
                         </div>
                         
@@ -81,12 +87,6 @@
                                     </option>
                                     <option value="tarde" <?= ($curso['jornada'] ?? '') === 'tarde' ? 'selected' : '' ?>>
                                         Tarde
-                                    </option>
-                                    <option value="noche" <?= ($curso['jornada'] ?? '') === 'noche' ? 'selected' : '' ?>>
-                                        Noche
-                                    </option>
-                                    <option value="completa" <?= ($curso['jornada'] ?? '') === 'completa' ? 'selected' : '' ?>>
-                                        Jornada Completa
                                     </option>
                                 </select>
                             </div>

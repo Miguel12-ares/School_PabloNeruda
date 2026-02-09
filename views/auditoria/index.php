@@ -2,11 +2,14 @@
 
 <div class="container-fluid py-4">
     <div class="row mb-4">
-        <div class="col-md-8">
-            <h2><i class="bi bi-clock-history"></i> Auditoría del Sistema</h2>
+        <div class="col-12 text-center">
+            <h2 class="fw-bold mb-2"><i class="fas fa-history"></i> Auditoría del Sistema</h2>
             <p class="text-muted">Registro de actividades y acciones del sistema</p>
         </div>
-        <div class="col-md-4 text-end">
+    </div>
+    
+    <div class="row mb-3">
+        <div class="col-12 text-end">
             <a href="/index.php?controller=auditoria&action=exportar<?= http_build_query($filtros) ? '&' . http_build_query($filtros) : '' ?>" 
                class="btn btn-success">
                 <i class="bi bi-file-earmark-excel"></i> Exportar CSV

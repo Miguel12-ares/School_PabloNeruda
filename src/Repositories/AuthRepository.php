@@ -319,5 +319,21 @@ class AuthRepository extends BaseRepository {
         $stmt->execute([$cursoId]);
         return $stmt->fetchAll();
     }
+    
+    /**
+     * Obtener asignaciones de curso y materia de un maestro
+     */
+    public function getMaestroAsignaciones(int $userId): array {
+        $stmt = $this->db->prepare("
+            SELECT mc.id_curso, mc.id_materia, c.nombre_curso, m.nombre_materia
+            FROM maestro_curso mc
+            INNER JOIN cursos c ON mc.id_curso = c.id_curso
+            INNER JOIN materias m ON mc.id_materia = m.id_materia
+            WHERE mc.id_usuario = ?
+            ORDER BY c.nombre_curso, m.nombre_materia
+        ");
+        $stmt->execute([$userId]);
+        return $stmt->fetchAll();
+    }
 }
 

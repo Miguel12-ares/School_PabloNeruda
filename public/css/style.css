@@ -29,6 +29,22 @@ h1, h2, h3, h4, h5, h6, .dashboard-title {
     font-weight: 600;
 }
 
+/* Títulos de secciones principales - Centrados y en negrita */
+.page-title,
+.container-fluid h2:first-of-type,
+.row > .col-12.text-center h2 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700 !important;
+    text-align: center;
+    color: var(--primary-color);
+}
+
+/* Iconos en títulos principales con FontAwesome */
+.page-title i,
+.container-fluid h2 i {
+    margin-right: 0.5rem;
+}
+
 .navbar-brand {
     font-family: 'Poppins', sans-serif;
 }

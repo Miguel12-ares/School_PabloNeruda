@@ -55,5 +55,29 @@ class PeriodoRepository extends BaseRepository {
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
+    
+    /**
+     * Verificar si un periodo está activo (dentro de sus fechas)
+     */
+    public function isPeriodoActivo(int $id_periodo): bool {
+        $sql = "SELECT COUNT(*) FROM periodos 
+                WHERE id_periodo = ? 
+                AND CURDATE() BETWEEN fecha_inicio AND fecha_fin";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id_periodo]);
+        return $stmt->fetchColumn() > 0;
+    }
+    
+    /**
+     * Verificar si un periodo ya ha iniciado
+     */
+    public function isPeriodoIniciado(int $id_periodo): bool {
+        $sql = "SELECT COUNT(*) FROM periodos 
+                WHERE id_periodo = ? 
+                AND CURDATE() >= fecha_inicio";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id_periodo]);
+        return $stmt->fetchColumn() > 0;
+    }
 }
 

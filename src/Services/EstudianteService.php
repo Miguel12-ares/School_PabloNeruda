@@ -247,5 +247,19 @@ class EstudianteService {
     public function getWithAlergias(): array {
         return $this->estudianteRepo->findWithAlergias();
     }
+    
+    /**
+     * Obtener estudiantes con alergias por curso
+     */
+    public function getWithAlergiasByCurso(int $id_curso): array {
+        return $this->estudianteRepo->findWithAlergiasByCurso($id_curso);
+    }
+    
+    /**
+     * Obtener todos los estudiantes
+     */
+    public function getAll(): array {
+        return $this->estudianteRepo->findAll();
+    }
 }
 

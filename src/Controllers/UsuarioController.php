@@ -268,15 +268,7 @@ class UsuarioController {
      * Obtener asignaciones actuales de un maestro
      */
     private function getMaestroAsignaciones(int $userId): array {
-        $stmt = $this->authRepo->db->prepare("
-            SELECT mc.id_curso, mc.id_materia, c.nombre_curso, m.nombre_materia
-            FROM maestro_curso mc
-            INNER JOIN cursos c ON mc.id_curso = c.id_curso
-            INNER JOIN materias m ON mc.id_materia = m.id_materia
-            WHERE mc.id_usuario = ?
-        ");
-        $stmt->execute([$userId]);
-        return $stmt->fetchAll();
+        return $this->authRepo->getMaestroAsignaciones($userId);
     }
 }
 

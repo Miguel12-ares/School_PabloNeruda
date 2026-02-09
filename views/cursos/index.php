@@ -2,11 +2,14 @@
 
 <div class="container-fluid py-4">
     <div class="row mb-4">
-        <div class="col-md-8">
-            <h2><i class="bi bi-book-fill"></i> Gestión de Cursos</h2>
+        <div class="col-12 text-center">
+            <h2 class="fw-bold mb-2"><i class="fas fa-chalkboard-teacher"></i> Gestión de Cursos</h2>
             <p class="text-muted">Administra los cursos y grados del sistema</p>
         </div>
-        <div class="col-md-4 text-end">
+    </div>
+    
+    <div class="row mb-3">
+        <div class="col-12 text-end">
             <?php if ($permissionMiddleware->checkPermission('cursos', 'crear')): ?>
                 <a href="/index.php?controller=curso&action=create" class="btn btn-primary">
                     <i class="bi bi-plus-circle"></i> Nuevo Curso
@@ -52,9 +55,9 @@
                                     </td>
                                     <td>
                                         <?php if ($curso['grado'] == 0): ?>
-                                            <span class="badge bg-info">Preescolar</span>
+                                            <span class="badge bg-warning text-dark">0°</span>
                                         <?php else: ?>
-                                            <?= $curso['grado'] ?>°
+                                            <span class="badge bg-primary"><?= $curso['grado'] ?>°</span>
                                         <?php endif; ?>
                                     </td>
                                     <td>
@@ -71,30 +74,23 @@
                                     <td class="text-center">
                                         <strong><?= $curso['total_estudiantes'] ?></strong>
                                     </td>
-                                    <td style="width: 150px;">
-                                        <div class="progress" style="height: 20px;">
-                                            <div class="progress-bar bg-<?= $colorBarra ?>" 
-                                                 role="progressbar" 
-                                                 style="width: <?= min($porcentaje, 100) ?>%"
-                                                 aria-valuenow="<?= $porcentaje ?>" 
-                                                 aria-valuemin="0" 
-                                                 aria-valuemax="100">
-                                                <?= number_format($porcentaje, 0) ?>%
-                                            </div>
-                                        </div>
+                                    <td class="text-center">
+                                        <span class="badge bg-<?= $colorBarra ?>">
+                                            <?= $curso['total_estudiantes'] ?> / <?= $curso['capacidad_maxima'] ?>
+                                        </span>
                                     </td>
                                     <td>
                                         <div class="btn-group btn-group-sm" role="group">
                                             <a href="/index.php?controller=curso&action=view&id=<?= $curso['id_curso'] ?>" 
                                                class="btn btn-outline-info" 
                                                title="Ver detalle">
-                                                <i class="bi bi-eye"></i>
+                                                <i class="fas fa-eye"></i>
                                             </a>
                                             <?php if ($permissionMiddleware->checkPermission('cursos', 'editar')): ?>
                                                 <a href="/index.php?controller=curso&action=edit&id=<?= $curso['id_curso'] ?>" 
                                                    class="btn btn-outline-primary" 
                                                    title="Editar">
-                                                    <i class="bi bi-pencil"></i>
+                                                    <i class="fas fa-edit"></i>
                                                 </a>
                                             <?php endif; ?>
                                             <?php if ($permissionMiddleware->checkPermission('cursos', 'eliminar')): ?>
@@ -102,7 +98,7 @@
                                                         class="btn btn-outline-danger" 
                                                         title="Eliminar"
                                                         onclick="confirmarEliminar(<?= $curso['id_curso'] ?>, '<?= htmlspecialchars($curso['nombre_curso']) ?>', <?= $curso['total_estudiantes'] ?>)">
-                                                    <i class="bi bi-trash"></i>
+                                                    <i class="fas fa-trash-alt"></i>
                                                 </button>
                                             <?php endif; ?>
                                         </div>

@@ -9,6 +9,16 @@ class CursoRepository extends BaseRepository {
     protected string $primaryKey = 'id_curso';
     
     /**
+     * Buscar curso por nombre
+     */
+    public function findByNombre(string $nombre): ?array {
+        $stmt = $this->db->prepare("SELECT * FROM cursos WHERE nombre_curso = ? LIMIT 1");
+        $stmt->execute([$nombre]);
+        $result = $stmt->fetch();
+        return $result ?: null;
+    }
+    
+    /**
      * Obtener cursos por jornada
      */
     public function findByJornada(string $jornada): array {
