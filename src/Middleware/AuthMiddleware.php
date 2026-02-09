@@ -22,7 +22,7 @@ class AuthMiddleware {
             $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'] ?? '';
             
             // Redirigir al login
-            header('Location: /login.php');
+            header('Location: /login');
             exit;
         }
     }
@@ -71,7 +71,7 @@ class AuthMiddleware {
         $redirect = $_SESSION['redirect_after_login'] ?? '';
         unset($_SESSION['redirect_after_login']);
         
-        if (!empty($redirect) && $redirect !== '/login.php' && $redirect !== '/logout.php') {
+        if (!empty($redirect) && $redirect !== '/login' && $redirect !== '/login.php' && $redirect !== '/logout.php') {
             return $redirect;
         }
         

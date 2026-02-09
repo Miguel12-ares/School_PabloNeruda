@@ -1,140 +1,31 @@
 # Sistema de Gestión Escolar - Escuela Pablo Neruda
 
-Sistema completo de gestión académica desarrollado en PHP nativo y MySQL, siguiendo principios SOLID y arquitectura limpia.
+Sistema completo de gestión académica desarrollado en PHP nativo y MySQL para la Escuela Pablo Neruda (Barrio Las Malvinas, Sector 4 Berlín). Permite gestionar estudiantes desde preescolar hasta quinto grado, calificaciones, reportes y boletines.
 
-## 📋 Descripción
+## Stack Tecnológico
 
-La Escuela Pablo Neruda (Barrio Las Malvinas, Sector 4 Berlín) requiere digitalizar la gestión académica de estudiantes desde preescolar hasta grado quinto. Este sistema reemplaza el manejo manual en cuadernos físicos, eliminando errores, pérdida de información y demoras en búsquedas críticas.
-
-## 🚀 Características Principales
-
-### Gestión de Estudiantes
-- ✅ Registro completo con documento de identidad (PDF)
-- ✅ Control de capacidad máxima por curso (35 estudiantes)
-- ✅ Gestión de alergias para emergencias
-- ✅ Asociación con acudientes (padre/madre)
-- ✅ Información de convivencia familiar
-- ✅ Búsqueda rápida por documento, nombre o curso
-
-### Sistema de Calificaciones
-- ✅ 5 notas por materia por periodo (4 periodos/año)
-- ✅ Escala de 0.0 a 5.0
-- ✅ Cálculo automático de promedio en base de datos
-- ✅ Estado automático: Aprobado (≥3.0) / Reprobado (<3.0)
-- ✅ Boletines de notas imprimibles
-
-### Reportes
-- ✅ Listado de estudiantes por curso
-- ✅ Estudiantes con alergias (reporte de emergencia)
-- ✅ Estudiantes reprobados por periodo
-- ✅ Boletines individuales y por curso
-
-## 🛠️ Stack Tecnológico
-
-- **Backend:** PHP 8.x nativo (sin frameworks)
+- **Backend:** PHP 8.x nativo
 - **Base de Datos:** MySQL 8.x con PDO
-- **Frontend:** HTML5 + CSS3 + JavaScript vanilla
-- **UI Framework:** Bootstrap 5
-- **Servidor:** Apache (XAMPP/WAMP)
+- **Frontend:** HTML5, CSS3, JavaScript vanilla, Bootstrap 5
+- **Arquitectura:** MVC con principios SOLID
 
-## 📁 Estructura del Proyecto
+## Instalación
 
-```
-escuela-pablo-neruda/
-├── config/
-│   ├── database.php          # Singleton PDO
-│   ├── constants.php          # Constantes del sistema
-│   └── autoload.php           # Autoloader de clases
-├── src/
-│   ├── Interfaces/
-│   │   ├── RepositoryInterface.php
-│   │   └── ValidatorInterface.php
-│   ├── Models/
-│   │   ├── Estudiante.php
-│   │   ├── Curso.php
-│   │   ├── Materia.php
-│   │   ├── Acudiente.php
-│   │   ├── Nota.php
-│   │   └── Periodo.php
-│   ├── Repositories/
-│   │   ├── BaseRepository.php
-│   │   ├── EstudianteRepository.php
-│   │   ├── CursoRepository.php
-│   │   ├── MateriaRepository.php
-│   │   ├── AcudienteRepository.php
-│   │   ├── NotaRepository.php
-│   │   ├── PeriodoRepository.php
-│   │   └── AlergiaRepository.php
-│   ├── Services/
-│   │   ├── EstudianteService.php
-│   │   ├── NotaService.php
-│   │   ├── CursoService.php
-│   │   ├── MateriaService.php
-│   │   ├── PeriodoService.php
-│   │   └── AcudienteService.php
-│   ├── Validators/
-│   │   ├── EstudianteValidator.php
-│   │   ├── NotaValidator.php
-│   │   └── AcudienteValidator.php
-│   └── Controllers/
-│       ├── EstudianteController.php
-│       ├── NotaController.php
-│       └── ReporteController.php
-├── public/
-│   ├── index.php              # Front controller
-│   ├── css/
-│   │   └── style.css
-│   ├── js/
-│   │   └── main.js
-│   └── uploads/               # PDFs de documentos
-├── views/
-│   ├── layout/
-│   │   ├── header.php
-│   │   └── footer.php
-│   ├── estudiantes/
-│   │   ├── index.php
-│   │   ├── create.php
-│   │   ├── edit.php
-│   │   └── view.php
-│   ├── notas/
-│   │   ├── index.php
-│   │   ├── registrar.php
-│   │   └── boletin.php
-│   └── reportes/
-│       ├── index.php
-│       ├── estudiantes_por_curso.php
-│       ├── estudiantes_alergias.php
-│       ├── estudiantes_reprobados.php
-│       └── boletines.php
-├── DB_PabloNeruda.sql         # Estructura de base de datos
-├── datos_prueba.sql           # Datos de prueba
-└── README.md
-```
-
-## 📦 Instalación
-
-### Requisitos Previos
+### Requisitos
 
 - PHP 8.0 o superior
 - MySQL 8.0 o superior
-- Apache (XAMPP, WAMP, LAMP, o similar)
 - Extensiones PHP: PDO, pdo_mysql, mbstring, fileinfo
 
-### Pasos de Instalación
+### Configuración
 
-1. **Clonar o descargar el proyecto**
+1. **Base de datos**
    ```bash
-   cd C:\xampp\htdocs\
-   # Copiar la carpeta del proyecto aquí
+   # Crear base de datos ejecutando DB_PabloNeruda.sql
+   # Opcional: Cargar datos_prueba.sql para datos de ejemplo
    ```
 
-2. **Crear la base de datos**
-   ```bash
-   # Abrir phpMyAdmin o MySQL Workbench
-   # Ejecutar el archivo DB_PabloNeruda.sql
-   ```
-
-3. **Configurar la conexión a la base de datos**
+2. **Configurar conexión**
    
    Editar `config/database.php` si es necesario:
    ```php
@@ -144,90 +35,143 @@ escuela-pablo-neruda/
    private string $password = '';
    ```
 
-4. **Configurar permisos de la carpeta uploads**
+3. **Permisos**
    ```bash
-   # En Windows (desde la carpeta del proyecto)
+   # Windows
    icacls public\uploads /grant Everyone:F
    
-   # En Linux/Mac
+   # Linux/Mac
    chmod 755 public/uploads
    ```
 
-5. **Cargar datos de prueba (opcional)**
-   ```bash
-   # Ejecutar el archivo datos_prueba.sql en phpMyAdmin
-   ```
+## Ejecución
 
-6. **Acceder al sistema**
-   ```
-   http://localhost/School_PabloNeruda/public/
-   ```
+### Con servidor PHP (Desarrollo)
 
-## 🎯 Uso del Sistema
+```bash
+php -S localhost:8000 -t public public/router.php
+```
 
-### Módulo de Estudiantes
+Acceder a: `http://localhost:8000/home`
 
-1. **Registrar Estudiante:**
-   - Ir a "Estudiantes" → "Nuevo Estudiante"
-   - Completar formulario con datos personales
-   - Subir documento PDF (opcional, máx 2MB)
-   - Marcar si tiene alergias y especificarlas
-   - Guardar
+### Con Apache (Producción)
 
-2. **Buscar Estudiante:**
-   - Usar el buscador en la página principal
-   - Buscar por documento, nombre o apellido
+1. Configurar VirtualHost apuntando a la carpeta `public`
+2. Acceder según la configuración del VirtualHost
 
-3. **Editar/Ver Detalles:**
-   - Clic en los botones de acción en la tabla
-   - Ver información completa incluyendo acudientes
+## Rutas del Sistema
 
-### Módulo de Notas
+- `/home` - Página principal pública con información institucional
+- `/login` - Inicio de sesión (sin credenciales visibles)
+- `/index.php` - Dashboard según rol después del login
 
-1. **Registrar Notas:**
-   - Ir a "Notas" → Seleccionar curso y periodo
-   - Ingresar calificaciones (0.0 a 5.0)
-   - Guardar cada fila individualmente
-   - El promedio y estado se calculan automáticamente
+## Credenciales de Acceso
 
-2. **Consultar Boletín:**
-   - Ir a "Reportes" → "Boletines de Notas"
-   - Seleccionar curso y periodo
-   - Ver boletín individual
-   - Opción de imprimir
+Las credenciales no se muestran en el login por seguridad:
 
-### Módulo de Reportes
+- **Administrativo:** admin / escuela2026
+- **Directivo:** director / escuela2026
+- **Maestro:** profesor / escuela2026
 
-1. **Estudiantes por Curso:**
-   - Listado completo con información de contacto
-   - Opción de impresión
+## Funcionalidades
 
-2. **Estudiantes con Alergias:**
-   - Reporte de emergencia
-   - Información crítica para personal
+### Gestión de Estudiantes
 
-3. **Estudiantes Reprobados:**
-   - Filtrar por periodo
-   - Ver cantidad de materias reprobadas
+- Registro completo con documento PDF
+- Control de capacidad (35 estudiantes por curso)
+- Gestión de alergias
+- Asociación con acudientes
+- Búsqueda por documento, nombre o curso
 
-## 🔒 Seguridad
+### Sistema de Calificaciones
 
-- ✅ Prepared statements (prevención de SQL injection)
-- ✅ Validación de datos en cliente y servidor
-- ✅ Sanitización de inputs con `htmlspecialchars()`
-- ✅ Validación de tipo MIME para archivos
-- ✅ Límite de tamaño de archivos (2MB)
-- ✅ Nombres únicos para archivos subidos (hash)
+- 5 notas por materia por periodo
+- 4 periodos por año escolar
+- Escala 0.0 a 5.0
+- Promedio y estado (Aprobado/Reprobado) calculados automáticamente
+- Boletines de notas imprimibles
 
-## 🏗️ Arquitectura
+### Reportes
 
-### Principios SOLID Aplicados
+- Listado de estudiantes por curso
+- Estudiantes con alergias (emergencias)
+- Estudiantes reprobados por periodo
+- Boletines individuales y por curso
 
-1. **Single Responsibility:** Cada clase tiene una única responsabilidad
-2. **Open/Closed:** Extensible mediante herencia (BaseRepository)
-3. **Liskov Substitution:** Interfaces implementadas correctamente
-4. **Interface Segregation:** Interfaces específicas y pequeñas
-5. **Dependency Inversion:** Dependencias mediante interfaces
+### Sistema de Autenticación
+
+- Login con usuario o email
+- Roles: Administrativo, Directivo, Maestro
+- Permisos específicos por rol
+- Dashboard personalizado según rol
+- Auditoría de acciones
+- Bloqueo temporal tras intentos fallidos
+
+### Gestión de Usuarios
+
+- CRUD completo de usuarios
+- Asignación de roles múltiples
+- Cambio de contraseña
+- Perfil de usuario
+
+### Gestión de Cursos y Materias
+
+- Administración de cursos por grado y sección
+- Asignación de materias a cursos
+- Control de jornadas (mañana/tarde)
+
+## Estructura del Proyecto
+
+```
+School_PabloNeruda/
+├── config/
+│   ├── database.php          # Conexión PDO Singleton
+│   ├── constants.php          # Constantes del sistema
+│   └── autoload.php           # Autoloader de clases
+├── src/
+│   ├── Controllers/          # Controladores MVC
+│   ├── Services/             # Lógica de negocio
+│   ├── Repositories/         # Acceso a datos
+│   ├── Models/               # Modelos de datos
+│   ├── Validators/           # Validación de datos
+│   ├── Middleware/           # Auth y permisos
+│   └── Libraries/            # Librerías (FPDF)
+├── public/
+│   ├── router.php            # Router para servidor PHP
+│   ├── home.php              # Página principal
+│   ├── login.php             # Inicio de sesión
+│   ├── index.php             # Front controller
+│   ├── css/                  # Estilos
+│   ├── js/                   # Scripts
+│   └── uploads/              # Documentos PDF
+├── views/
+│   ├── layout/
+│   │   ├── header.php        # Header autenticado
+│   │   ├── header_public.php # Header público
+│   │   └── footer.php        # Footer
+│   ├── home/                 # Vista página principal
+│   ├── auth/                 # Vistas de autenticación
+│   ├── dashboard/            # Dashboards por rol
+│   ├── estudiantes/          # CRUD estudiantes
+│   ├── notas/                # Registro y consulta
+│   ├── reportes/             # Reportes e impresión
+│   ├── usuarios/             # Gestión usuarios
+│   ├── cursos/               # Gestión cursos
+│   └── materias/             # Gestión materias
+├── DB_PabloNeruda.sql       # Estructura de BD
+├── datos_prueba.sql          # Datos de ejemplo
+└── README.md
+```
+
+## Arquitectura
+
+### Principios SOLID
+
+- **Single Responsibility:** Cada clase una responsabilidad
+- **Open/Closed:** Extensible mediante herencia
+- **Liskov Substitution:** Interfaces correctamente implementadas
+- **Interface Segregation:** Interfaces específicas
+- **Dependency Inversion:** Dependencias mediante interfaces
 
 ### Patrones de Diseño
 
@@ -237,60 +181,46 @@ escuela-pablo-neruda/
 - **Front Controller:** Enrutamiento centralizado
 - **MVC:** Separación de responsabilidades
 
-## 📊 Base de Datos
+## Base de Datos
 
 ### Tablas Principales
 
+- `usuarios` - Usuarios del sistema
+- `roles` - Roles disponibles
+- `usuario_rol` - Relación usuarios-roles
+- `permisos` - Permisos del sistema
+- `rol_permiso` - Relación roles-permisos
 - `estudiantes` - Información de estudiantes
 - `cursos` - Cursos disponibles
 - `materias` - Materias del plan de estudios
-- `notas` - Calificaciones (con promedio y estado calculados)
+- `notas` - Calificaciones
 - `periodos` - Periodos académicos
 - `acudientes` - Padres/tutores
 - `alergias_estudiante` - Alergias por estudiante
-- `convivencia_familiar` - Información familiar
+- `auditoria` - Registro de acciones
+- `login_attempts` - Intentos de login
 
-### Características Especiales
+### Características
 
 - Promedio y estado calculados automáticamente en MySQL
-- Relaciones N:N entre cursos-materias y estudiantes-acudientes
-- Cascada en eliminaciones donde corresponde
+- Relaciones N:N con tablas pivote
+- Cascada en eliminaciones
 - Índices para optimizar búsquedas
 
-## 🧪 Datos de Prueba
+## Seguridad
 
-El sistema incluye 6 estudiantes de prueba con:
-- Información completa
-- Acudientes asociados
-- Alergias (algunos)
-- Notas del primer periodo
-- Casos de aprobados y reprobados
+- Prepared statements (prevención SQL injection)
+- Validación cliente y servidor
+- Sanitización con `htmlspecialchars()`
+- Validación MIME para archivos
+- Límite de 2MB para uploads
+- Hash de contraseñas con `password_hash()`
+- Protección CSRF en formularios
+- Bloqueo tras intentos fallidos de login
 
-## 🐛 Solución de Problemas
+## Desarrollo
 
-### Error de conexión a la base de datos
-- Verificar que MySQL esté ejecutándose
-- Revisar credenciales en `config/database.php`
-- Confirmar que la base de datos existe
-
-### No se pueden subir archivos
-- Verificar permisos de `public/uploads`
-- Revisar `php.ini`: `upload_max_filesize` y `post_max_size`
-
-### Errores de autoload
-- Verificar que todas las clases estén en sus carpetas correctas
-- Nombres de archivo deben coincidir con nombres de clase
-
-## 📝 Notas Importantes
-
-- El promedio y estado de notas se calculan **automáticamente en MySQL**
-- No calcular promedios en PHP, leer directamente de la BD
-- Validar siempre en servidor, nunca confiar solo en validación cliente
-- Mantener actualizado el reporte de alergias para emergencias
-
-## 👨‍💻 Desarrollo
-
-### Agregar Nueva Funcionalidad
+Para agregar funcionalidad:
 
 1. Crear modelo en `src/Models/`
 2. Crear repositorio en `src/Repositories/`
@@ -300,17 +230,15 @@ El sistema incluye 6 estudiantes de prueba con:
 6. Crear vistas en `views/`
 7. Actualizar rutas en `public/index.php`
 
-## 📄 Licencia
+## Notas Importantes
 
-Este proyecto fue desarrollado para la Escuela Pablo Neruda como sistema interno de gestión académica.
-
-## 📞 Soporte
-
-Para soporte o consultas sobre el sistema, contactar al administrador del sistema.
+- El promedio y estado se calculan automáticamente en MySQL
+- Validar siempre en servidor, no solo en cliente
+- El servidor PHP requiere `router.php` para rutas limpias
+- En Apache usar el archivo `.htaccess` incluido
 
 ---
 
 **Escuela Pablo Neruda**  
 Barrio Las Malvinas, Sector 4 Berlín  
 Sistema de Gestión Académica © 2026
-

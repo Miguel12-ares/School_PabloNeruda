@@ -3,7 +3,13 @@
 # Habilitar RewriteEngine
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /School_PabloNeruda/public/
+    RewriteBase /
+    
+    # Ruta para /home - soporta GET y POST
+    RewriteRule ^home/?$ home.php [L,QSA]
+    
+    # Ruta para /login - soporta GET y POST
+    RewriteRule ^login/?$ login.php [L,QSA]
     
     # Redirigir todo a index.php excepto archivos existentes
     RewriteCond %{REQUEST_FILENAME} !-f

@@ -29,7 +29,7 @@ class AuthController {
      */
     public function processLogin(): void {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header('Location: /login.php');
+            header('Location: /login');
             exit;
         }
         
@@ -39,7 +39,7 @@ class AuthController {
         // Validar campos vacíos
         if (empty($username) || empty($password)) {
             $_SESSION['error'] = 'Por favor complete todos los campos';
-            header('Location: /login.php');
+            header('Location: /login');
             exit;
         }
         
@@ -59,7 +59,7 @@ class AuthController {
                 $_SESSION['error_type'] = 'blocked';
             }
             
-            header('Location: /login.php');
+            header('Location: /login');
             exit;
         }
     }
@@ -70,7 +70,7 @@ class AuthController {
     public function logout(): void {
         $this->authService->logout();
         $_SESSION['success'] = 'Sesión cerrada exitosamente';
-        header('Location: /login.php');
+        header('Location: /login');
         exit;
     }
     

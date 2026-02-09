@@ -22,7 +22,7 @@ if (!$controller && !$action) {
             'Administrativo' => '/dashboard/admin.php',
             'Directivo' => '/dashboard/directivo.php',
             'Maestro' => '/dashboard/maestro.php',
-            default => '/login.php'
+            default => '/login'
         };
         header("Location: {$dashboard}");
         exit;
